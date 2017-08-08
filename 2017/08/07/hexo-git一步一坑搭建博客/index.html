@@ -102,7 +102,7 @@
 <meta property="og:description" content="根据这篇文章使用hexo+git搭建真正属于自己的博客的过程中是很顺利的,但是还是在部署到远程仓库的时候还是遇到了以下几个问题:1234deploy:type:gitrepository: git@github.com:xxxxxx.githup.io.gitbranch: master 1.修改了配置_config.yml文件之后,执行部署命令 hexo g/ hexo s,报错如下:12FAT">
 <meta property="og:locale" content="zh-Hans    //语言 中文">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/792843-7b1415990378b3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-08-07T10:04:33.000Z">
+<meta property="og:updated_time" content="2017-08-08T01:39:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo+git一步一坑搭建博客">
 <meta name="twitter:description" content="根据这篇文章使用hexo+git搭建真正属于自己的博客的过程中是很顺利的,但是还是在部署到远程仓库的时候还是遇到了以下几个问题:1234deploy:type:gitrepository: git@github.com:xxxxxx.githup.io.gitbranch: master 1.修改了配置_config.yml文件之后,执行部署命令 hexo g/ hexo s,报错如下:12FAT">
@@ -207,7 +207,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -217,7 +217,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -291,7 +291,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-07T17:52:43+08:00">
                 2017-08-07
@@ -333,14 +333,14 @@
       
         <p>根据<a href="http://qjzhixing.com/2015/08/26/" target="_blank" rel="external">这篇文章</a>使用<code>hexo+git</code>搭建真正属于自己的博客的过程中是很顺利的,但是还是在部署到远程仓库的时候还是遇到了以下几个问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">type:git</div><div class="line">repository: git@github.com:xxxxxx.githup.io.git</div><div class="line">branch: master</div></pre></td></tr></table></figure></p>
 <h3 id="1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下"><a href="#1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下" class="headerlink" title="1.修改了配置_config.yml文件之后,执行部署命令 hexo g/ hexo s,报错如下:"></a>1.修改了配置<code>_config.yml</code>文件之后,执行部署命令 <code>hexo g/ hexo s</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FATAL bad indentation of a mapping entry at line 81, column 13:</div><div class="line">repository: https://github.com/NightSkyWat ...</div></pre></td></tr></table></figure>
-<p><strong>原因</strong>:hexo语法比较严格,在修改配置文件<code>_config.yml</code>之后,一定要检查冒号后面的空格!!!检查冒号后面的空格!!!检查冒号后面的空格!!!</p>
-<p><strong>解决</strong>:将修改部分<code>type/repository/branch</code>后面都有一个空格</p>
+<p><strong><em>原因</em></strong>:hexo语法比较严格,在修改配置文件<code>_config.yml</code>之后,一定要检查冒号后面的空格!!!检查冒号后面的空格!!!检查冒号后面的空格!!!</p>
+<p><strong><em>解决</em></strong>:将修改部分<code>type/repository/branch</code>后面都有一个空格</p>
 <h3 id="2-修改问题1之后-执行部署命令hexo-d-报错如下"><a href="#2-修改问题1之后-执行部署命令hexo-d-报错如下" class="headerlink" title="2.修改问题1之后,执行部署命令hexo d,报错如下:"></a>2.修改问题1之后,执行部署命令<code>hexo d</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
-<p><strong>原因</strong>:部署远程博客前，需要安装git<br><strong>解决</strong>:执行该命令 <code>npm install hexo-deployer-git --save</code></p>
+<p><strong><em>原因</em></strong>:部署远程博客前，需要安装git<br><strong><em>解决</em></strong>:执行该命令 <code>npm install hexo-deployer-git --save</code></p>
 <h3 id="3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错"><a href="#3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错" class="headerlink" title="3.使用SSH KEY,本地生成id_rsa 和id_rsa_pub文件,并复制id_rsa_pub文件中的内容添加到帐号之后,部署(hexo d)报错:"></a>3.使用<code>SSH KEY</code>,本地生成<code>id_rsa</code> 和<code>id_rsa_pub</code>文件,并复制<code>id_rsa_pub</code>文件中的内容添加到帐号之后,部署(<code>hexo d</code>)报错:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could not read from remote repository.</div><div class="line">Please make sure you have the correct access rights</div><div class="line">and the repository exists.</div><div class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</div></pre></td></tr></table></figure>
 <p>测试当前的SSH是否配置成功,在git bash 中执行命令<code>ssh -T git@github.com</code>报错如下:<br><code>Permission denied (publickey).</code></p>
-<p><strong>原因</strong>:说明当前<code>SSH</code>没有配置成功</p>
-<p><strong>解决</strong>:<br>请确保以下2步均做到<br>1、远程服务器已经有了对应于本地主机上公钥<br>2、本地主机ssh服务开启(windows上是ssh-agent.exe运行)，并且本地主机私钥要包含在ssh服务列表中</p>
+<p><strong><em>原因</em></strong>:说明当前<code>SSH</code>没有配置成功</p>
+<p><strong><em>解决</em></strong>:<br>请确保以下2步均做到<br>1、远程服务器已经有了对应于本地主机上公钥<br>2、本地主机ssh服务开启(windows上是ssh-agent.exe运行)，并且本地主机私钥要包含在ssh服务列表中</p>
 <p>第一步已经完成,:已经将<code>id_rsa_pub</code>文件中的内容添加到了github帐号</p>
 <p>检查本地私钥是否存在于ssh服务中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh</div><div class="line">eval &apos;ssh-agent -s&apos;</div></pre></td></tr></table></figure></p>
 <p>如果运行这句出现Could not open a connection to your authentication agent，那么就先运行<br><code>ssh-agent bash</code><br>再运行<br><code>ssh-add -l</code><br>如果不存在，需要添加进去<br><code>ssh-add ~/.ssh/id_rsa</code><br>添加完成之后,再执行<code>ssh -T git@github.com</code>测试<code>SSH</code>是否配置成功!!!</p>
@@ -434,10 +434,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Table of Contents
+            Inhaltsverzeichnis
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Overview
+            Übersicht
           </li>
         </ul>
       
@@ -458,7 +458,7 @@
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
                 <span class="site-state-item-count">3</span>
-                <span class="site-state-item-name">posts</span>
+                <span class="site-state-item-name">Artikel</span>
               </a>
             </div>
           
@@ -528,7 +528,7 @@
 
 
 <div class="powered-by">
-  Powered by <a class="theme-link" href="https://hexo.io">Hexo</a>
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
