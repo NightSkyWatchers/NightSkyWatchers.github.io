@@ -92,6 +92,9 @@
 
 
 
+  <meta property="fb:admins" content="104961176889168" />
+  <meta property="fb:app_id" content="1398148560306852" />
+
 
 
 <meta name="description" content="记录生活的点点滴滴,待岁月逝去,回首往事,嘴角扬起久违的笑容">
@@ -140,6 +143,24 @@
 
   <title>FourV Zhang'Blog</title>
   
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '1398148560306852',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
 
 
 
@@ -297,6 +318,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/hexo-git一步一坑搭建博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/07/hexo-git一步一坑搭建博客/" itemprop="url">hexo+git一步一坑搭建博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T17:52:43+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/07/hexo-git一步一坑搭建博客/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://yoursite.com/2017/08/07/hexo-git一步一坑搭建博客/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/08/07/hexo-git一步一坑搭建博客/" class="leancloud_visitors" data-flag-title="hexo+git一步一坑搭建博客">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据<a href="http://qjzhixing.com/2015/08/26/" target="_blank" rel="external">这篇文章</a>使用<code>hexo+git</code>搭建真正属于自己的博客的过程中是很顺利的,但是还是在部署到远程仓库的时候还是遇到了以下几个问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">type:git</div><div class="line">repository: git@github.com:xxxxxx.githup.io.git</div><div class="line">branch: master</div></pre></td></tr></table></figure></p>
+<h3 id="1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下"><a href="#1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下" class="headerlink" title="1.修改了配置_config.yml文件之后,执行部署命令 hexo g/ hexo s,报错如下:"></a>1.修改了配置<code>_config.yml</code>文件之后,执行部署命令 <code>hexo g/ hexo s</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FATAL bad indentation of a mapping entry at line 81, column 13:</div><div class="line">repository: https://github.com/NightSkyWat ...</div></pre></td></tr></table></figure>
+<p><strong><em>原因</em></strong>:hexo语法比较严格,在修改配置文件<code>_config.yml</code>之后,一定要检查冒号后面的空格!!!检查冒号后面的空格!!!检查冒号后面的空格!!!</p>
+<p><strong><em>解决</em></strong>:将修改部分<code>type/repository/branch</code>后面都有一个空格</p>
+<h3 id="2-修改问题1之后-执行部署命令hexo-d-报错如下"><a href="#2-修改问题1之后-执行部署命令hexo-d-报错如下" class="headerlink" title="2.修改问题1之后,执行部署命令hexo d,报错如下:"></a>2.修改问题1之后,执行部署命令<code>hexo d</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
+<p><strong><em>原因</em></strong>:部署远程博客前，需要安装git<br><strong><em>解决</em></strong>:执行该命令 <code>npm install hexo-deployer-git --save</code></p>
+<h3 id="3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错"><a href="#3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错" class="headerlink" title="3.使用SSH KEY,本地生成id_rsa 和id_rsa_pub文件,并复制id_rsa_pub文件中的内容添加到帐号之后,部署(hexo d)报错:"></a>3.使用<code>SSH KEY</code>,本地生成<code>id_rsa</code> 和<code>id_rsa_pub</code>文件,并复制<code>id_rsa_pub</code>文件中的内容添加到帐号之后,部署(<code>hexo d</code>)报错:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could not read from remote repository.</div><div class="line">Please make sure you have the correct access rights</div><div class="line">and the repository exists.</div><div class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</div></pre></td></tr></table></figure>
+<p>测试当前的SSH是否配置成功,在git bash 中执行命令<code>ssh -T git@github.com</code>报错如下:<br><code>Permission denied (publickey).</code></p>
+<p><strong><em>原因</em></strong>:说明当前<code>SSH</code>没有配置成功</p>
+<p><strong><em>解决</em></strong>:<br>请确保以下2步均做到<br>1、远程服务器已经有了对应于本地主机上公钥<br>2、本地主机ssh服务开启(windows上是ssh-agent.exe运行)，并且本地主机私钥要包含在ssh服务列表中</p>
+<p>第一步已经完成,:已经将<code>id_rsa_pub</code>文件中的内容添加到了github帐号</p>
+<p>检查本地私钥是否存在于ssh服务中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh</div><div class="line">eval &apos;ssh-agent -s&apos;</div></pre></td></tr></table></figure></p>
+<p>如果运行这句出现Could not open a connection to your authentication agent，那么就先运行<br><code>ssh-agent bash</code><br>再运行<br><code>ssh-add -l</code><br>如果不存在，需要添加进去<br><code>ssh-add ~/.ssh/id_rsa</code><br>添加完成之后,再执行<code>ssh -T git@github.com</code>测试<code>SSH</code>是否配置成功!!!</p>
+<p>如果出现以下内容说明配置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hi username! You&apos;ve successfully authenticated,</div><div class="line">but GitHub does not provide shell access.</div></pre></td></tr></table></figure></p>
+<h3 id="4-执行终端命令hexo-s-并在浏览器里输入https-localhost-4000后-可以预览到修改的相关内容-但是部署到远程仓库后-成功部署-打开对应的http-username-githup-io网址却出现以下充斥着形形色色广告的界面-到底是什么原因导致的呢"><a href="#4-执行终端命令hexo-s-并在浏览器里输入https-localhost-4000后-可以预览到修改的相关内容-但是部署到远程仓库后-成功部署-打开对应的http-username-githup-io网址却出现以下充斥着形形色色广告的界面-到底是什么原因导致的呢" class="headerlink" title="4.执行终端命令hexo s,并在浏览器里输入https://localhost:4000后,可以预览到修改的相关内容,但是部署到远程仓库后(成功部署),打开对应的http://username.githup.io网址却出现以下充斥着形形色色广告的界面,到底是什么原因导致的呢?"></a>4.执行终端命令<code>hexo s</code>,并在浏览器里输入<a href="https://localhost:4000/" target="_blank" rel="external">https://localhost:4000</a>后,可以预览到修改的相关内容,但是部署到远程仓库后(成功部署),打开对应的<a href="https://nightskywatchers.githup.io" target="_blank" rel="external">http://username.githup.io</a>网址却出现以下充斥着形形色色广告的界面,到底是什么原因导致的呢?</h3><p><img src="http://upload-images.jianshu.io/upload_images/792843-7b1415990378b3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="仓库名称错误.png"><br>最后经过排查找出错误原因:<br>因为自己错误的拼写习惯,错把<code>github</code>拼成了<code>githup</code>,<br>修改了 <strong>userName.github.io</strong> 和 <strong><code>_config.yml</code>中<code>repository:</code>键值</strong>之后,顺序执行 <code>hexo clean / hexo g /hexo d</code>命令重新部署到远程仓库, 并进入对应的 <a href="https://nightskywatchers.github.io" target="_blank" rel="external">http://username.github.io</a></p>
+<p>###大功告成!!!</p>
+<p><strong>参考</strong><br><a href="http://blog.csdn.net/binyao02123202/article/details/20130891" target="_blank" rel="external">github设置添加SSH</a><br><a href="http://blog.csdn.net/beslow/article/details/33727917" target="_blank" rel="external">Permission denied (publickey)</a><br><a href="http://www.jianshu.com/p/588cb1cc077a" target="_blank" rel="external">Hexo博客搭建中的坑</a><br><a href="http://www.jianshu.com/p/4eaddcbe4d12" target="_blank" rel="external">5分钟 搭建免费个人博客</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/第一篇博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -430,153 +608,6 @@ GO!  GO!  GO!
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/hexo-git一步一坑搭建博客/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/07/hexo-git一步一坑搭建博客/" itemprop="url">hexo+git一步一坑搭建博客</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T17:52:43+08:00">
-                2017-08-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/08/07/hexo-git一步一坑搭建博客/" class="leancloud_visitors" data-flag-title="hexo+git一步一坑搭建博客">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>根据<a href="http://qjzhixing.com/2015/08/26/" target="_blank" rel="external">这篇文章</a>使用<code>hexo+git</code>搭建真正属于自己的博客的过程中是很顺利的,但是还是在部署到远程仓库的时候还是遇到了以下几个问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">type:git</div><div class="line">repository: git@github.com:xxxxxx.githup.io.git</div><div class="line">branch: master</div></pre></td></tr></table></figure></p>
-<h3 id="1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下"><a href="#1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下" class="headerlink" title="1.修改了配置_config.yml文件之后,执行部署命令 hexo g/ hexo s,报错如下:"></a>1.修改了配置<code>_config.yml</code>文件之后,执行部署命令 <code>hexo g/ hexo s</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FATAL bad indentation of a mapping entry at line 81, column 13:</div><div class="line">repository: https://github.com/NightSkyWat ...</div></pre></td></tr></table></figure>
-<p><strong><em>原因</em></strong>:hexo语法比较严格,在修改配置文件<code>_config.yml</code>之后,一定要检查冒号后面的空格!!!检查冒号后面的空格!!!检查冒号后面的空格!!!</p>
-<p><strong><em>解决</em></strong>:将修改部分<code>type/repository/branch</code>后面都有一个空格</p>
-<h3 id="2-修改问题1之后-执行部署命令hexo-d-报错如下"><a href="#2-修改问题1之后-执行部署命令hexo-d-报错如下" class="headerlink" title="2.修改问题1之后,执行部署命令hexo d,报错如下:"></a>2.修改问题1之后,执行部署命令<code>hexo d</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
-<p><strong><em>原因</em></strong>:部署远程博客前，需要安装git<br><strong><em>解决</em></strong>:执行该命令 <code>npm install hexo-deployer-git --save</code></p>
-<h3 id="3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错"><a href="#3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错" class="headerlink" title="3.使用SSH KEY,本地生成id_rsa 和id_rsa_pub文件,并复制id_rsa_pub文件中的内容添加到帐号之后,部署(hexo d)报错:"></a>3.使用<code>SSH KEY</code>,本地生成<code>id_rsa</code> 和<code>id_rsa_pub</code>文件,并复制<code>id_rsa_pub</code>文件中的内容添加到帐号之后,部署(<code>hexo d</code>)报错:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could not read from remote repository.</div><div class="line">Please make sure you have the correct access rights</div><div class="line">and the repository exists.</div><div class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</div></pre></td></tr></table></figure>
-<p>测试当前的SSH是否配置成功,在git bash 中执行命令<code>ssh -T git@github.com</code>报错如下:<br><code>Permission denied (publickey).</code></p>
-<p><strong><em>原因</em></strong>:说明当前<code>SSH</code>没有配置成功</p>
-<p><strong><em>解决</em></strong>:<br>请确保以下2步均做到<br>1、远程服务器已经有了对应于本地主机上公钥<br>2、本地主机ssh服务开启(windows上是ssh-agent.exe运行)，并且本地主机私钥要包含在ssh服务列表中</p>
-<p>第一步已经完成,:已经将<code>id_rsa_pub</code>文件中的内容添加到了github帐号</p>
-<p>检查本地私钥是否存在于ssh服务中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh</div><div class="line">eval &apos;ssh-agent -s&apos;</div></pre></td></tr></table></figure></p>
-<p>如果运行这句出现Could not open a connection to your authentication agent，那么就先运行<br><code>ssh-agent bash</code><br>再运行<br><code>ssh-add -l</code><br>如果不存在，需要添加进去<br><code>ssh-add ~/.ssh/id_rsa</code><br>添加完成之后,再执行<code>ssh -T git@github.com</code>测试<code>SSH</code>是否配置成功!!!</p>
-<p>如果出现以下内容说明配置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hi username! You&apos;ve successfully authenticated,</div><div class="line">but GitHub does not provide shell access.</div></pre></td></tr></table></figure></p>
-<h3 id="4-执行终端命令hexo-s-并在浏览器里输入https-localhost-4000后-可以预览到修改的相关内容-但是部署到远程仓库后-成功部署-打开对应的http-username-githup-io网址却出现以下充斥着形形色色广告的界面-到底是什么原因导致的呢"><a href="#4-执行终端命令hexo-s-并在浏览器里输入https-localhost-4000后-可以预览到修改的相关内容-但是部署到远程仓库后-成功部署-打开对应的http-username-githup-io网址却出现以下充斥着形形色色广告的界面-到底是什么原因导致的呢" class="headerlink" title="4.执行终端命令hexo s,并在浏览器里输入https://localhost:4000后,可以预览到修改的相关内容,但是部署到远程仓库后(成功部署),打开对应的http://username.githup.io网址却出现以下充斥着形形色色广告的界面,到底是什么原因导致的呢?"></a>4.执行终端命令<code>hexo s</code>,并在浏览器里输入<a href="https://localhost:4000/" target="_blank" rel="external">https://localhost:4000</a>后,可以预览到修改的相关内容,但是部署到远程仓库后(成功部署),打开对应的<a href="https://nightskywatchers.githup.io" target="_blank" rel="external">http://username.githup.io</a>网址却出现以下充斥着形形色色广告的界面,到底是什么原因导致的呢?</h3><p><img src="http://upload-images.jianshu.io/upload_images/792843-7b1415990378b3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="仓库名称错误.png"><br>最后经过排查找出错误原因:<br>因为自己错误的拼写习惯,错把<code>github</code>拼成了<code>githup</code>,<br>修改了 <strong>userName.github.io</strong> 和 <strong><code>_config.yml</code>中<code>repository:</code>键值</strong>之后,顺序执行 <code>hexo clean / hexo g /hexo d</code>命令重新部署到远程仓库, 并进入对应的 <a href="https://nightskywatchers.github.io" target="_blank" rel="external">http://username.github.io</a></p>
-<p>###大功告成!!!</p>
-<p><strong>参考</strong><br><a href="http://blog.csdn.net/binyao02123202/article/details/20130891" target="_blank" rel="external">github设置添加SSH</a><br><a href="http://blog.csdn.net/beslow/article/details/33727917" target="_blank" rel="external">Permission denied (publickey)</a><br><a href="http://www.jianshu.com/p/588cb1cc077a" target="_blank" rel="external">Hexo博客搭建中的坑</a><br><a href="http://www.jianshu.com/p/4eaddcbe4d12" target="_blank" rel="external">5分钟 搭建免费个人博客</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/07/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -621,6 +652,16 @@ GO!  GO!  GO!
           
 
           
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/07/hello-world/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count fb-comments-count" data-href="http://yoursite.com/2017/08/07/hello-world/" itemprop="commentCount">0</span> comments
+                </a>
+              </span>
             
           
 
@@ -924,10 +965,6 @@ GO!  GO!  GO!
 
 
 
-  
-    
-
-    
   
 
 
