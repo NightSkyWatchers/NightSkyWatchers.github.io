@@ -94,21 +94,21 @@
 
 
 
-<meta name="description" content="ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 #####一、创">
+<meta name="description" content="ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 一、创建coll">
 <meta name="keywords" content="ios">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浅析collectionView的item间距">
 <meta property="og:url" content="http://www.fourvcat.cc/2018/03/13/浅析collectionView的item间距/index.html">
 <meta property="og:site_name" content="FourV Zhang&#39;Blog">
-<meta property="og:description" content="ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 #####一、创">
+<meta property="og:description" content="ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 一、创建coll">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/792843-e38f8f37093b9047.gif?imageMogr2/auto-orient/strip">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/792843-337ac4d11d9e3a6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/792843-b867e973012d97b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-03-15T02:22:38.000Z">
+<meta property="og:updated_time" content="2018-03-15T06:39:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析collectionView的item间距">
-<meta name="twitter:description" content="ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 #####一、创">
+<meta name="twitter:description" content="ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 一、创建coll">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/792843-e38f8f37093b9047.gif?imageMogr2/auto-orient/strip">
 
 
@@ -432,27 +432,28 @@
 
       
         <p>ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于<strong>列表展示</strong>和 <strong>网格展示</strong>；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如<strong>横向布局、多行或者多列(瀑布流)</strong>展示。</p>
-<p>#####一、创建collectionView（collectionView控制器）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(collectionView)</div><div class="line">- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout</div><div class="line"></div><div class="line">(collectionView控制器)</div><div class="line">- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout ;</div></pre></td></tr></table></figure></p>
+<h5 id="一、创建collectionView（collectionView控制器）"><a href="#一、创建collectionView（collectionView控制器）" class="headerlink" title="一、创建collectionView（collectionView控制器）"></a>一、创建collectionView（collectionView控制器）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(collectionView)</div><div class="line">- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout</div><div class="line"></div><div class="line">(collectionView控制器)</div><div class="line">- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout ;</div></pre></td></tr></table></figure>
 <p>初始化类似tableView，设置delegate 和 datasource；<br>不同于tablView初始化设置UITableViewStyle，而collctionView初始化设置UICollectionViewLayout（一般用它的子类UICollectionViewFlowLayout）。<br>此处的UICollectionViewLayout是用于存储collectionView的一些布局属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic) CGFloat minimumLineSpacing;</div><div class="line">@property (nonatomic) CGFloat minimumInteritemSpacing;</div><div class="line">@property (nonatomic) CGSize itemSize;</div><div class="line">@property (nonatomic) UICollectionViewScrollDirection scrollDirection;</div><div class="line">@property (nonatomic) UIEdgeInsets sectionInset;</div></pre></td></tr></table></figure></p>
 <p>cell间距的设置需要用到以上这些关键性属性。</p>
-<p>#####二、布局协议</p>
-<blockquote>
+<h5 id="二、布局协议"><a href="#二、布局协议" class="headerlink" title="二、布局协议"></a>二、布局协议</h5><blockquote>
 <p>UICollectionViewDelegateFlowLayout</p>
 </blockquote>
 <p><strong>协议中有以下这几个和布局相关的方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;</div><div class="line">- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;</div><div class="line">- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;</div><div class="line">- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;</div><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;</div><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section;</div></pre></td></tr></table></figure></p>
 <p>这几个方法的功能和UICollectionViewLayout的4个属性基本相对应：<br><strong>1.属性用于统一设置<br>2.对象方法既可以统一设置，也可以区别设置</strong></p>
-<p>这几个方法名的区别在后半部分<br><figure class="highlight plain"><figcaption><span>sizeForItemAtIndexPath:(NSIndexPath *)indexPath```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">等同于属性 itemSize；</div><div class="line"></div><div class="line">```xxxxx insetForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
-<p>等同于属性 sectionInset；</p>
-<figure class="highlight plain"><figcaption><span>minimumLineSpacingForSectionAtIndex:(NSInteger)section```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">等同于属性 minimumLineSpacing；</div><div class="line"></div><div class="line">```xxxxx minimumInteritemSpacingForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure>
+<p>这几个方法名的区别在后半部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx sizeForItemAtIndexPath:(NSIndexPath *)indexPath</div></pre></td></tr></table></figure></p>
+<p>等同于属性 itemSize；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx insetForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
+<p>等同于属性 sectionInset；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx minimumLineSpacingForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
+<p>等同于属性 minimumLineSpacing；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx minimumInteritemSpacingForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
 <p>等同于属性 minimumInteritemSpacing；</p>
-<p>#####三、图文解析对应属性（针对不同滚动方向）<br><img src="https://upload-images.jianshu.io/upload_images/792843-e38f8f37093b9047.gif?imageMogr2/auto-orient/strip" alt="collectionView布局.gif"><br>gif中每个不同颜色代表不同的section</p>
+<h5 id="三、图文解析对应属性（针对不同滚动方向）"><a href="#三、图文解析对应属性（针对不同滚动方向）" class="headerlink" title="三、图文解析对应属性（针对不同滚动方向）"></a>三、图文解析对应属性（针对不同滚动方向）</h5><p><img src="https://upload-images.jianshu.io/upload_images/792843-e38f8f37093b9047.gif?imageMogr2/auto-orient/strip" alt="collectionView布局.gif"><br>gif中每个不同颜色代表不同的section</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/792843-337ac4d11d9e3a6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="水平方向滚动.png"></p>
 <p>水平方向滚动的collectionView，竖直方向的间距是固定的：minimumInteritemSpacing指的是同一个section 内部item的竖直方向间隙；<br>minimumLineSpacing指的是同一个section 内部 item的水平方向间隙；</p>
 <p><img src="https://upload-images.jianshu.io/upload_images/792843-b867e973012d97b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="竖直方向滚动.png"></p>
 <p>竖直方向滚动的collectionView，水平方向的间距是固定的：minimumInteritemSpacing指的是同一个section 内部item的水平方向间隙；<br>minimumLineSpacing指的是同一个section 内部 item的竖直方向间隙；</p>
-<p>######总结：<br>minimumInteritemSpacing表示 同一个section内部间item的 和滚动方向垂直方向的间距；</p>
-<p>minimumLineSpacing指的是同一个section 内部 item 的滚动方向的间距；<br>sectionInset指的是每个section内缩进；属性设置的每个section的内错进是相同的，都是正数。如果需要实现不同的setion的不同的内缩进，可以使用对象方法<br><code>- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;</code>来实现。</p>
-<p>######注意：<br>在写demo的过程中，发现collectionView的<strong>contentInsetAdjustmentBehavior</strong>（等同于控制器的automaticallyAdjustsScrollViewInsets属性）默认为UIScrollViewContentInsetAdjustmentAutomatic枚举值，会自适应控制器的边距，避开导航栏和状态栏，而使得collectionView的真实高度 和设置的高度不一致（相差状态栏和导航栏的高度和）。</p>
+<h6 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h6><p>minimumInteritemSpacing表示 同一个section内部间item的 和滚动方向垂直方向的间距；</p>
+<p>minimumLineSpacing指的是同一个section 内部 item 的滚动方向的间距；<br>sectionInset指的是每个section内缩进；属性设置的每个section的内错进是相同的，都是正数。如果需要实现不同的setion的不同的内缩进，可以使用对象方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;</div></pre></td></tr></table></figure></p>
+<p>来实现。</p>
+<h6 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h6><p>在写demo的过程中，发现collectionView的<strong>contentInsetAdjustmentBehavior</strong>（等同于控制器的automaticallyAdjustsScrollViewInsets属性）默认为UIScrollViewContentInsetAdjustmentAutomatic枚举值，会自适应控制器的边距，避开导航栏和状态栏，而使得collectionView的真实高度 和设置的高度不一致（相差状态栏和导航栏的高度和）。</p>
 <p><strong>demo地址</strong>：<a href="https://github.com/NightSkyWatchers/collectionView，欢迎下载观摩指正，内有*彩蛋*" target="_blank" rel="external">https://github.com/NightSkyWatchers/collectionView，欢迎下载观摩指正，内有*彩蛋*</a></p>
 
       
@@ -484,8 +485,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/07/第一篇博客/" rel="next" title="第一篇博客">
-                <i class="fa fa-chevron-left"></i> 第一篇博客
+              <a href="/2017/08/07/hexo-git一步一坑搭建博客/" rel="next" title="hexo+git一步一坑搭建博客">
+                <i class="fa fa-chevron-left"></i> hexo+git一步一坑搭建博客
               </a>
             
           </div>
@@ -493,10 +494,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/14/test/" rel="prev" title="浅析collectionView的item间距">
-                浅析collectionView的item间距 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,8 +585,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/cc.jpeg"
@@ -604,7 +610,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -651,6 +657,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#一、创建collectionView（collectionView控制器）"><span class="nav-number">1.</span> <span class="nav-text">一、创建collectionView（collectionView控制器）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二、布局协议"><span class="nav-number">2.</span> <span class="nav-text">二、布局协议</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#三、图文解析对应属性（针对不同滚动方向）"><span class="nav-number">3.</span> <span class="nav-text">三、图文解析对应属性（针对不同滚动方向）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#总结："><span class="nav-number">3.1.</span> <span class="nav-text">总结：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#注意："><span class="nav-number">3.2.</span> <span class="nav-text">注意：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
