@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[第一篇博客]]></title>
-    <url>%2F2018%2F03%2F16%2Ftest%2F</url>
-    <content type="text"><![CDATA[经过两三天的努力终于搭建了属于自己的博客;今天写下了第一篇博客!记录生活中的喜怒哀乐,开发中的收获与经验,旅游途中的感想... GO! GO! GO! 欢迎光临我的 [个人博客](https://NightSkyWatchers.github.io)!]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[浅析collectionView的item间距]]></title>
     <url>%2F2018%2F03%2F13%2F%E6%B5%85%E6%9E%90collectionView%E7%9A%84item%E9%97%B4%E8%B7%9D%2F</url>
     <content type="text"><![CDATA[ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于列表展示和 网格展示；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如横向布局、多行或者多列(瀑布流)展示。 一、创建collectionView（collectionView控制器）12345(collectionView)- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout(collectionView控制器)- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout ; 初始化类似tableView，设置delegate 和 datasource；不同于tablView初始化设置UITableViewStyle，而collctionView初始化设置UICollectionViewLayout（一般用它的子类UICollectionViewFlowLayout）。此处的UICollectionViewLayout是用于存储collectionView的一些布局属性：12345@property (nonatomic) CGFloat minimumLineSpacing;@property (nonatomic) CGFloat minimumInteritemSpacing;@property (nonatomic) CGSize itemSize;@property (nonatomic) UICollectionViewScrollDirection scrollDirection;@property (nonatomic) UIEdgeInsets sectionInset; cell间距的设置需要用到以上这些关键性属性。 二、布局协议 UICollectionViewDelegateFlowLayout 协议中有以下这几个和布局相关的方法123456- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section; 这几个方法的功能和UICollectionViewLayout的4个属性基本相对应：1.属性用于统一设置2.对象方法既可以统一设置，也可以区别设置 这几个方法名的区别在后半部分1xxxxx sizeForItemAtIndexPath:(NSIndexPath *)indexPath 等同于属性 itemSize；1xxxxx insetForSectionAtIndex:(NSInteger)section 等同于属性 sectionInset；1xxxxx minimumLineSpacingForSectionAtIndex:(NSInteger)section 等同于属性 minimumLineSpacing；1xxxxx minimumInteritemSpacingForSectionAtIndex:(NSInteger)section 等同于属性 minimumInteritemSpacing； 三、图文解析对应属性（针对不同滚动方向）gif中每个不同颜色代表不同的section 水平方向滚动的collectionView，竖直方向的间距是固定的：minimumInteritemSpacing指的是同一个section 内部item的竖直方向间隙；minimumLineSpacing指的是同一个section 内部 item的水平方向间隙； 竖直方向滚动的collectionView，水平方向的间距是固定的：minimumInteritemSpacing指的是同一个section 内部item的水平方向间隙；minimumLineSpacing指的是同一个section 内部 item的竖直方向间隙； 总结：minimumInteritemSpacing表示 同一个section内部间item的 和滚动方向垂直方向的间距； minimumLineSpacing指的是同一个section 内部 item 的滚动方向的间距；sectionInset指的是每个section内缩进；属性设置的每个section的内错进是相同的，都是正数。如果需要实现不同的setion的不同的内缩进，可以使用对象方法1- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section; 来实现。 注意：在写demo的过程中，发现collectionView的contentInsetAdjustmentBehavior（等同于控制器的automaticallyAdjustsScrollViewInsets属性）默认为UIScrollViewContentInsetAdjustmentAutomatic枚举值，会自适应控制器的边距，避开导航栏和状态栏，而使得collectionView的真实高度 和设置的高度不一致（相差状态栏和导航栏的高度和）。 demo地址：https://github.com/NightSkyWatchers/collectionView，欢迎下载观摩指正，内有*彩蛋*]]></content>
@@ -15,6 +10,21 @@
       <tags>
         <tag>ios</tag>
       </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[分享与支付中的磕磕碰碰]]></title>
+    <url>%2F2018%2F03%2F01%2F%E8%BD%AF%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%26%26%E6%B5%8B%E8%AF%95%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[软件的生命周期1.问题定义及规划解决用户的痛点，方便用户软件开发目的以及可行性，制定开发计划。。。 2.需求分析3.软件设计4.软件编码开发人员进行程序编码 5.软件测试开发做，单元测试开发or测试做， 集成测试开发做， 系统测试测试做，验收测试 6.软件维护版本上线，产品上线，版本的升级改造，修复bug 软件测试的工作流程接触到哪些岗位人员———-开发人员、产品经理、客服（收集用户反馈）、实施／技术支持／现场实施（驻场）、设计师]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[系统学习---软件测试的分类]]></title>
+    <url>%2F2018%2F03%2F01%2F%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0---%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%9A%84%E5%88%86%E7%B1%BB%2F</url>
+    <content type="text"><![CDATA[1.按照测试阶段单元测试，集成测试，系统测试，验收测试（正式验收测试，Alpha测试，Beta测试） 集成测试——-开发与开发之间的联调，接口测试系统测试——整体全部功能的测试，不是模块的测试Alpha测试—–前期用户测试，内部人员模拟实际环境进行验收测试（内测）Beta测试——后期用户测试，通过内部测试，即将正式发布。 在一个或多个真实环境下发布版本进行公测。（预发步版本，公测，预测） 2.按照测试技术分类白盒测试，黑盒测试，灰盒测试 白盒测试———- 知道程序内部代码逻辑，代码拿过来，输入测试数据就知道是否ok黑盒测试———-不知道xxxxxxxxxxxx，通过表面的反应才知道是否ok灰盒测试———-介于二者之间，既有xx，也有xx 3.按照被测试对象是否运行分类动态测试，静态测试（文档检查，代码走查，界面检查） 4.不同测试手段手工测试，自动化测试 5.按测试包含的内容划分功能测试，界面测试，安全测试，兼容性测试，易用性测试，性能测试，压力测试，负载测试，恢复测试（灾备） 恢复测试—-主要检查系统的容错能力。采用各种办法强迫系统失败，然后验证系统能否在指定的时间间隔内尽快恢复并重新启动系统易用性测试—-测试软件是否易用，主观性比较强 6.其他测试冒烟测试，回归测试，探索性测试（测试思维） 详解：冒烟测试——在真正测试开始之前，都会对应用版本 主干功能做一下测试，如果主干功能都测试不通过，就可以打回这个版本； 回归测试——-指之前提出的bug被修正后／软件功能发生变化后进行的重新测试，确认修改部分已经ok，并且不会对其他功能造成影响！1.验证bug是否被修复2.和该bug相关功能是否被影响 ###软件测试是什么定义：为了发现程序中的错误而执行程序的过程 1.为了发现程序存在的代码或业务逻辑错误2.为了检验产品是否符合用户需求3.为了提高用户的体验 软件测试的原则1.测试应该尽早介入2.所有测试追溯到用户需求3.程序员英国避免检查自己的程序，除了单元测试，交给第三方／专业测试4.设计测试用例时，应该考虑合法的输入和不合法的输入以及各种边界条件，意外状态5.二八原则，测试发现的错误中80%很可能起源于20%的模块中（聚集效应，bug比较集中）6.对错误结果要进行一个确认过程（必现，偶现；复现！！！）7.制定严格的测试计划8.完全测试是不可能的，测试需要终止（测试不是无休止的，没有明显bug测试就可以终止）9.妥善保存测试过程中的所有文档]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[分享与支付中的磕磕碰碰]]></title>
+    <url>%2F2018%2F01%2F29%2F%E5%88%86%E4%BA%AB%E4%B8%8E%E6%94%AF%E4%BB%98%E4%B8%AD%E7%9A%84%E7%A3%95%E7%A3%95%E7%A2%B0%E7%A2%B0%2F</url>
+    <content type="text"><![CDATA[1.分享菜单栏汉化使用ShareSDK自带的UI分享界面，出现英文的分享界面！在cocopods中，能看到ShareSDK是有中英文名称的（国际化） 所以只需要在项目的info.plist文件中增添一个 “Localizations”字段，并添加一个 “chinese (simplified)”即可切换为想要的汉化名称。 ##2.分享微信– bundle id验证不通过 部分手机分享不正常,(ios9，ios10 OK, ios11.2出现此问题)这是微信有段时间开始验证项目的bundle id相关信息，1)去微信的开放平台(https://open.weixin.qq.com)查看注册的应用是否包含ios平台，如若不包含ios平台，请添加！！ 2)注册的应用的bundle id 和项目的bundle id是否一致，如果不一致，修改一致！ 3.微信支付，调不起微信App可能存在的问题1）123456789//调起微信支付PayReq* req = [[PayReq alloc] init];req.partnerId = model.partnerId;req.prepayId = model.prepayId;req.nonceStr = model.nonceStr;req.timeStamp = model.timeStamp;req.package = model.package;req.sign = model.sign;[WXApi sendReq:req]; 这些是调起微信app的关键值，如果这些值中任何一个值不存在都会发生调不起微信app的可能！]]></content>
   </entry>
   <entry>
     <title><![CDATA[hexo+git一步一坑搭建博客]]></title>
@@ -36,5 +46,15 @@
     <title><![CDATA[Hello World]]></title>
     <url>%2F2017%2F08%2F07%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F08%2F07%2Fhello-world%E7%9A%84%E5%89%AF%E6%9C%AC%202%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2017%2F08%2F07%2F%E6%89%8B%E5%8A%A8%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8%E6%97%A0%E6%B3%95%E4%B8%8A%E6%9E%B6%2F</url>
+    <content type="text"><![CDATA[beta最新版0.5提交苹果的审核通过了,手动发布后不久却收到邮件提示: 该应用已经被开发人员下架! 原因: 之前上架了一个beta低版本,并且被同事下架了; 手动发布beta 0.5 的时候没有将应用的 销售范围 仍为 “下架”状态 下架应用解决方法:修改为 “在所有地区供应”即可 重新上架应用图 苹果开发指南中有提到相关问题,描述如下: 注意： 如果您将某个版本下架，然后添加了一个新版本，则新版本也会处于“被下架”状态，即使新版本已获得“App 审核”批准也是如此。若要发行新版本，您需要再次使 App 获准销售。 将 App 重新上架 在“App 详细信息”页面，点按“价格与销售范围”。 在“销售范围”部分，选择“在所有地区供应”选项。 ../Art/13D-RemovedAppAvailable_2x.png 点按“存储”。 App 状态从“被开发人员下架”更改为“可供销售”。24 小时内您的 App 会重新显示在商店中。 其他问题请参考 苹果itunes connect 开发指南]]></content>
   </entry>
 </search>
