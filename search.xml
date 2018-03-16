@@ -28,11 +28,6 @@
     <content type="text"><![CDATA[经过两三天的努力终于搭建了属于自己的博客;今天写下了第一篇博客!记录生活中的喜怒哀乐,开发中的收获与经验,旅游途中的感想... GO! GO! GO! 欢迎光临我的 [个人博客](https://NightSkyWatchers.github.io)!]]></content>
   </entry>
   <entry>
-    <title><![CDATA[Test]]></title>
-    <url>%2F2017%2F08%2F07%2Fhello-world%E7%9A%84%E5%89%AF%E6%9C%AC%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
-  </entry>
-  <entry>
     <title><![CDATA[Hello World]]></title>
     <url>%2F2017%2F08%2F07%2Fhello-world%2F</url>
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
