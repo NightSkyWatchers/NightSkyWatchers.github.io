@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[APP上架被拒日常(6)-IPv6 网络错误]]></title>
+    <url>%2F2018%2F06%2F07%2FAPP%E4%B8%8A%E6%9E%B6%E8%A2%AB%E6%8B%92%E6%97%A5%E5%B8%B8(6)-IPv6%20%20%E7%BD%91%E7%BB%9C%E9%94%99%E8%AF%AF%2F</url>
+    <content type="text"><![CDATA[原文We discovered one or more bugs in your app when reviewed on iPhone running iOS 11.1 on Wi-Fi connected to an IPv6 network.Specifically, your app still displays a network error message and we are unable to log in.Please see attached screenshots for details.Next StepsTo resolve this issue, please run your app on a device to identify any issues, then revise and resubmit your app for review.If we misunderstood the intended behavior of your app, please reply to this message in Resolution Center to provide information on how these features were intended to work.For new apps, uninstall all previous versions of your app from a device, then install and follow the steps to reproduce the issue. For updates, install the new version as an update to the previous version, then follow the steps to reproduce the issue.ResourcesFor information about testing your app and preparing it for review, please see Technical Note TN2431: App Testing Guide.For a networking overview, please review About Networking. For a more specific overview of App Review’s IPv6 requirements, please review the IPv6 and App Review discussion on the Apple Developer Forum. 译文:当在连接到IPv6网络的Wi-Fi上运行ios11.1时，我们在应用程序中发现了一个或多个错误。具体来说，您的应用程序仍然显示一个网络错误信息，我们无法登录。详情请见附件截图。下一个步骤要解决这个问题，请在设备上运行您的应用程序来识别任何问题，然后修改并重新提交您的应用程序以供审查。如果我们误解了您的应用程序的意图行为，请在Resolution Center中回复此消息，以提供这些特性如何工作的信息。对于新的应用程序，从设备上卸载之前所有的应用程序，然后安装并执行复制问题的步骤。对于更新，将新版本作为以前版本的更新安装，然后按照以下步骤重新生成问题。资源有关测试您的应用程序并准备进行审查的信息，请参阅技术说明TN2431:应用程序测试指南。要了解网络概况，请回顾网络。关于应用程序审查的IPv6需求的更具体的概述，请回顾一下关于苹果开发者论坛的IPv6和应用程序审查讨论。 解决方案针对被拒内容中提到了IPv6 网络环境下,网络错误导致无法登录! 首先保证登录接口/截图中展示页面内网络接口能够正常使用,以防止在苹果审核期间宕机无法使用弹出网络错误的提示框; 其次搭建IPv6 的网络环境,并且录制使用APP的视频,上传到youtube上,并获取该视频的播放地址. 在重新打包提交的备注信息里或者问题中心的回复框里,附带上述视频地址以及相关解释说辞,提交审核即可. 附上截图:]]></content>
+      <categories>
+        <category>发布上架</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[APP上架被拒日常(5)-Payments - In-App Purchase]]></title>
+    <url>%2F2018%2F06%2F07%2FAPP%E4%B8%8A%E6%9E%B6%E8%A2%AB%E6%8B%92%E6%97%A5%E5%B8%B8(5)-Payments%20-%20In-App%20Purchase%2F</url>
+    <content type="text"><![CDATA[被拒(一)原文Hello,Thank you for providing the information. After further review, we found the following rejection:We noticed that your app or its metadata enables the purchase of content, services, or functionality in the app by means other than the in-app purchase API, which is not appropriate for the App Store.The next submission of this app may require a longer review time.Next Steps Review the In-App Purchase section of the App Store Review Guidelines. Ensure your app is compliant with all sections of the App Store Review Guidelines and the Terms &amp; Conditions of the Apple Developer Program. Once your app is fully compliant, resubmit your app for review.Submitting apps designed to mislead or harm customers or evade the review process may result in the termination of your Apple Developer Program account. Review the Terms &amp; Conditions of the Apple Developer Program to learn more about our policies regarding termination.If you believe your app is compliant with the App Store Review Guidelines, you may submit an appeal. Alternatively, you may provide additional details about your app by replying directly to this message. 译文:您好，谢谢您提供的信息。经过进一步的审查，我们发现了以下的拒绝:我们注意到，你的app或它的元数据可以通过APP内购买API以外的方式购买APP中的内容、服务或功能，这并不适合APP Store。这款应用的下一个提交可能需要更长的审查时间。下一个步骤-检查App Store内购买部分评审指南。-确保您的应用程序符合app Store评审指南的所有章节以及苹果开发者计划的条款和条件。-一旦你的应用完全兼容，重新提交你的应用进行审查。提交旨在误导、伤害客户或逃避审查过程的应用程序，可能会导致您的Apple Developer程序帐户被终止。查看Apple Developer Program的条款和条件，了解更多关于终止的政策。如果你认为你的应用程序符合app Store评审准则，你可以提出上诉。或者，您可以通过直接回复此消息来提供关于您的应用程序的其他详细信息。 解决方案￼一. 审核期间显示会员卡，让苹果审核员使用内购买的方式 购买会员，而不是使用内购以外的 方式购买,在此基础上还有以下两种处理方式选择1)被拒内容中已经发出警告：逃避审核规则，可能导致开发者帐号封禁；根据提示此次把第三方支付模块注释掉提交上线,审核通过后，再次打开第三方支付模块，以修复bug的名义上线面临问题： 导致首个版本短时间内无法使用第三方支付(微信,支付宝等) 2)保留第三方支付模块,添加一个实体商品(类似淘宝),使用微信支付方式;需要设计一个新的UI商品界面问题:时间成本比较高,业务逻辑繁琐 推荐方案1),我们是使用方案1)解决的问题. 二. 审核期间隐藏会员卡信息,审核通过后显示会员卡信息,并且不需要添加内购支付的逻辑,保留第三方支付模块代码. 面临问题:苹果审核可能会检测到第三方支付的相关库,譬如微信的sdk,支付宝的sdk.导致开发者帐号封禁 附上截图: 被拒(二)原文We noticed that your app is using consumable in-app purchase products as intermediary currency for the exchange of items that function as non-renewing subscriptions.Next StepsTo resolve this issue, please delete your consumable in-app purchase products, then create separate non-renewing subscription in-app purchase products for each item that the user would have exchanged those consumable products for. This product type matches the usage model for the products you are ultimately selling to your users.Note: The product type cannot be changed once an in-app purchase product has been created. Therefore, you will need to create a new in-app purchase product with the correct product type.To create new in-app purchases: Log in to iTunes Connect Click on “My Apps” Select your app Click on “Features” to create new in-app purchases Click Save Once you’ve completed all changes, click the “Submit for Review” button at the top of the App Version Information page.ResourcesMore information on in-app purchase product types is available in the In-App Purchase Programming Guide. 译文:我们注意到，您的应用程序正在使用可消费的内购产品作为交换项目的中介货币，这些项目的功能是不可更新的订阅。下一个步骤为了解决这个问题，请删除您的可消费应用内购买产品，然后为用户将这些可消费产品交换的每个项目创建单独的不可更新的应用内购买产品。该产品类型与您最终销售给用户的产品的使用模型相匹配。注意:在创建内购产品之后，不能更改产品类型。因此，您需要创建一个具有正确产品类型的应用程序内购买产品。创建新的应用内购买:-登录iTunes Connect。-点击“我的应用”—选择你的应用-点击“功能”来创建新的内购。—点击保存-完成所有更改后，点击App版本信息页面顶部的“提交审核”按钮。 解决方案根据提示解决就可以,删除掉appstore类型不正确(消费类型)的内购产品,然后重新创建正确类型(非续期订阅)的内购产品即可.]]></content>
+      <categories>
+        <category>发布上架</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[APP上架被拒日常(4)- 私有API - Software Requirements]]></title>
+    <url>%2F2018%2F06%2F07%2FAPP%E4%B8%8A%E6%9E%B6%E8%A2%AB%E6%8B%92%E6%97%A5%E5%B8%B8(4)-%20%E7%A7%81%E6%9C%89API%20-%20Software%20Requirements%2F</url>
+    <content type="text"><![CDATA[原文:Your app uses the “prefs:root=” non-public URL scheme, which is a private entity. The use of non-public APIs is not permitted on the App Store because it can lead to a poor user experience should these APIs changeContinuing to use or conceal non-public APIs in future submissions of this app may result in the termination of your Apple Developer account, as well as removal of all associated apps from the App StoreNext StepsTo resolve this issue, please revise your app to provide the associated functionality using public APIs or remove the functionality using the “prefs:root” or “App-Prefs:root” URL scheme.If there are no alternatives for providing the functionality your app requires, you can file an enhancement request. 译文:您的应用程序使用“prefs:root=”非公开URL组合，这是一个私有API。应用商店不允许使用非公有api，因为如果这些api发生变化，会导致糟糕的用户体验继续使用或隐藏私有API，在以后提交这个应用程序时，可能会导致你的苹果开发者账户被终止，并从应用商店中删除所有相关的应用下一个步骤要解决这个问题，请修改应用程序，使用公共api提供相关功能，或者删除使用“prefs:root”或“app - prefs:root”私有API相关功能。如果没有提供应用程序所需功能的替代方案，您可以提交增强请求。 解决方案:1)全局搜索项目中”prefs:root”关键词字眼,并将搜索到的结果分情况删除或者注释掉或者寻找替代方法;此外如果不放心私有API问题,可以查找项目中是否存在其他私有API,如有删除掉即可.此方法推荐!!!2)如果通过方法1)解决了私有API的问题,但是应用内相关功能却无法实现了,就给苹果提交请求,增加新的公有API!不过此方法漫长不一定能解决问题]]></content>
+      <categories>
+        <category>发布上架</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[APP上架被拒日常(3)- 误判为企业应用]]></title>
+    <url>%2F2018%2F06%2F07%2FAPP%E4%B8%8A%E6%9E%B6%E8%A2%AB%E6%8B%92%E6%97%A5%E5%B8%B8(3)-%20%E8%AF%AF%E5%88%A4%E4%B8%BA%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[原文:We found that your app is an in-house app, intended for employees or members of your organization. As such, it is not appropriate for the App Store.For information on distributing proprietary, in-house apps, please refer to the Apple Developer Enterprise Program. 译文:我们发现您的APP是一个公司内部APP,用于员工或您的组织成员。因此，它并不适合应用程序商店。有关分配专有的信息,企业内部应用程序,请参阅苹果开发者计划 解决方案:上一次APP被拒,回复的相关内容有些片面,导致苹果审核员认为应用是一个企业应用,不适合上架到应用商店,只需要解释清楚APP是提供给哪些人群使用,不仅仅是针对公司员工,还有除员工以外的大众用户群体,则可以解决此问题]]></content>
+      <categories>
+        <category>发布上架</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[APP上架被拒日常(2)- Data Collection and Storage]]></title>
+    <url>%2F2018%2F06%2F07%2FAPP%E4%B8%8A%E6%9E%B6%E8%A2%AB%E6%8B%92%E6%97%A5%E5%B8%B8(2)-%20Data%20Collection%20and%20Storage%2F</url>
+    <content type="text"><![CDATA[原文:Guideline 5.1.1 - Legal - Privacy - Data Collection and StorageWe noticed that your app requires users to register with personal information to access non account-based features. Apps cannot require user registration prior to allowing access to app content and features that are not associated specifically to the user.Please see attached screenshots for detailsNext StepsUser registration that requires the sharing of personal information must be optional or tied to account-specific functionality. Additionally, the requested information must be relevant to the features.Request a phone call from App ReviewAt your request, we can arrange for an Apple Representative to call you within the next three to five business days to discuss your App Review issue 译文:准则5.1.1 -法律-隐私保护-数据收集和存储我们注意到你的应用程序需要用户通过提交个人信息注册帐号来访问一些不基于帐户之上的功能特性。应用程序不能在允许访问与用户没有特定关联的应用程序内容和特性之前要求用户注册。详情请见附件截图接着下一步需要共享个人信息的用户注册必须是可选的，或者绑定到特定于帐户的功能。此外，所请求的信息必须与特性相关。请求App Review的电话根据您的要求，我们可以安排一位苹果代表在接下来的3到5个工作日内给您打电话，讨论您的应用程序审核问题。 复现步骤:游客状态,点击观看”被拒截图1”中的视频,因为涉及到视频用户授权需要用户信息,所以会弹登录注册页面 解决方案:1)在游客状态下,隐藏这些需要用户信息的相关内容,此方法比较推荐!!!2)如果隐藏实现比较繁琐的话,可以在苹果审核期间,程序内部默认一个用户cookie,从而使得游客状态访问相关信息不需要用户登录;审核通过后,使用真实帐号的cookie. 这个方法实现过程中需要注意不能改动现有其他功能的逻辑以及审核状态之间的转换,比较繁琐麻烦3)请求与app review电话联系,等待在未来3–5工作日内与审核人员电话沟通解释—-游客状态下,访问相关内容为何需要登录注册.如果不登录注册会出现什么问题.磨破嘴皮子说服审核员,考验沟通技术,看运气 附上截图:]]></content>
+      <categories>
+        <category>发布上架</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[APP上架被拒日常(1)- Information Needed]]></title>
+    <url>%2F2018%2F06%2F06%2FAPP%E4%B8%8A%E6%9E%B6%E8%A2%AB%E6%8B%92%E6%97%A5%E5%B8%B8(1)-%20Information%20Needed%2F</url>
+    <content type="text"><![CDATA[原文:Guideline 2.1 - Information NeededWe have started the review of your app, but we are not able to continue because we need additional information about your app.Next StepsTo help us proceed with the review of your app, please review the following questions and provide as much detailed information as you can. Does your app access any paid content or services? What are the paid content or services, and what are the costs? Do individual customers pay for the content or services? If no, does a company or organization pay for the content or services? - Where do they pay, and what’s the payment method? If users create an account to use your app, are there fees involved? How do users obtain an account?Once you reply to this message in Resolution Center with the requested information, we can proceed with your review. 译文:准则2.1 -所需的信息我们已经开始评估你的应用程序,但我们不能继续,因为我们需要更多的信息关于你的应用。下一步来帮助我们进行应用程序的审查,请检查以下问题,并提供尽可能多的详细信息应用程序访问付费内容或服务吗?付费内容或服务是什么?费用是什么?个人客户支付内容或服务?如果没有，公司或组织是否为内容或服务付费?他们支付,支付方式是什么?如果用户使用你的应用程序创建一个帐户,有涉及费用?用户如何取得帐户?一旦你回复这个消息在解决中心所请求的信息,我们可以开始你的审查。 解决方案:此一般出现在APP首次上线或者APP时隔一段时间提交一个大的更新版本时,按照译文所描述的,在问题中心的回复框里回复相关问题即可.不过也需要谨慎回复!!! 如果APP中涉及到付费内容/付费服务,并且使用了苹果的内购(iap)支付,或者APP干脆没有相关的付费内容/付费服务,则可以如实回答; 如果APP中含有付费内容/付费服务,但是不想使用内购(iap)支付给苹果分成,从而使用支付宝/微信/网银等第三方支付,则此处就需要编造一个善意的谎言,否定APP中的相关付费信息. 回复例句:Our Application without access to any paid digital content and services, so will not involve the issue of pay for content. Our Application Have registered entrance application, the user can get an APP account function through registration应用没有访问任何付费的数字内容或服务,所以更不会涉及到为内容付费的问题.应用有注册入口,用户可以通过注册功能获得一个APP账户]]></content>
+      <categories>
+        <category>发布上架</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[No accounts with itunes connect access have been found for the team "xxxx"]]></title>
     <url>%2F2018%2F03%2F26%2FNo%20accounts%20with%20itunes%20connect%20access%20have%20been%20found%20for%20the%20team%20%22xxxx%22%2F</url>
     <content type="text"><![CDATA[距离这一次打包发版很近的两三天前，xcode内配置文件和证书都正确无误，打包过程还很顺利！这次打包出现如下图的问题 在网上查找了好多相关问题的解决方法，都没能解决我遇到的问题；隔天在stackoverflow社区里，查找到了几个解决问题的方法，其中一个对我起到了很大的作用！Xcode 9 “no iTunes Connect account” error when uploading ####解决方案1采用little的解决方法 关闭xcode 终端执行命令rm -fr ~/Library/Developer/Xcode/DerivedData/ 重新打开Xcode，再次打包上传 ####解决方案2采用Jayprakash Dubey的解决方法 1.打包生成IPA应用包2.使用Application Loader 上传IPA文件！ 不过才用上述两个方法的前提就是 确保Xcode里配置的描述文件和证书没有过期/失效，可以按照博客中的方法去检查。点击首张图左下角的 Manage Accounts去添加设置帐号信息。 1. 你点add，删掉你的账号，再添加一次上去，重启Xcode再来一遍试试2. 检查你的证书、描述文件在开发者中心有没有过期，在Xcode有没有配置好3. 如果你此时要做的是提交App上架审核的操作，请你打开Xcode，按 command+逗号 检查你账号的身份，member，admin，还是agent，只有agent才有权限提交上架]]></content>

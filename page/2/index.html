@@ -327,6 +327,979 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/01/29/分享与支付中的磕磕碰碰/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/29/分享与支付中的磕磕碰碰/" itemprop="url">分享与支付中的磕磕碰碰</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-29T14:52:43+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+
+          
+          
+             <span id="/2018/01/29/分享与支付中的磕磕碰碰/" class="leancloud_visitors" data-flag-title="分享与支付中的磕磕碰碰">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="1-分享菜单栏汉化"><a href="#1-分享菜单栏汉化" class="headerlink" title="1.分享菜单栏汉化"></a>1.分享菜单栏汉化</h2><p>使用ShareSDK自带的UI分享界面，出现英文的分享界面！<img src="http://upload-images.jianshu.io/upload_images/792843-59af26bd59c73175.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分享英文.jpeg"><br>在cocopods中，能看到ShareSDK是有中英文名称的（国际化）</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/792843-21d19d387ec3212c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分享.png"><br>所以只需要在项目的info.plist文件中增添一个 “Localizations”字段，并添加一个 “chinese (simplified)”即可切换为想要的汉化名称。<br><img src="http://upload-images.jianshu.io/upload_images/792843-30df5a71d661164c.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分享中文.jpeg"></p>
+<p>##2.分享微信–  bundle id验证不通过</p>
+<p>部分手机分享不正常,(ios9，ios10 OK, ios11.2出现此问题)<br><img src="http://upload-images.jianshu.io/upload_images/792843-9b65bbd78b8d3377.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="bundle ID验证不通过.png"><br>这是微信有段时间开始验证项目的bundle id相关信息，<br>1)去微信的开放平台(<a href="https://open.weixin.qq.com)查看注册的应用是否包含ios平台，如若不包含ios平台，请添加！！" target="_blank" rel="external">https://open.weixin.qq.com)查看注册的应用是否包含ios平台，如若不包含ios平台，请添加！！</a><br><img src="http://upload-images.jianshu.io/upload_images/792843-fefdad1615953852.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="微信开放平台.jpeg"></p>
+<p>2)注册的应用的bundle id 和项目的bundle id是否一致，如果不一致，修改一致！</p>
+<h2 id="3-微信支付，调不起微信App"><a href="#3-微信支付，调不起微信App" class="headerlink" title="3.微信支付，调不起微信App"></a>3.微信支付，调不起微信App</h2><p>可能存在的问题<br>1）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//调起微信支付</div><div class="line">PayReq* req             = [[PayReq alloc] init];</div><div class="line">req.partnerId           = model.partnerId;</div><div class="line">req.prepayId            = model.prepayId;</div><div class="line">req.nonceStr            = model.nonceStr;</div><div class="line">req.timeStamp           = model.timeStamp;</div><div class="line">req.package             = model.package;</div><div class="line">req.sign                = model.sign;</div><div class="line">[WXApi sendReq:req];</div></pre></td></tr></table></figure></p>
+<p>这些是调起微信app的关键值，如果这些值中任何一个值不存在都会发生调不起微信app的可能！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/11/30/打上全局断点就崩溃在main函数上/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/30/打上全局断点就崩溃在main函数上/" itemprop="url">打上全局断点就崩溃在main函数上</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-30T15:49:00+08:00">
+                2017-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+          
+          
+             <span id="/2017/11/30/打上全局断点就崩溃在main函数上/" class="leancloud_visitors" data-flag-title="打上全局断点就崩溃在main函数上">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>不打全局断点能正常运行，打上全局断点就崩溃在main函数或者应用的其他莫名其妙的位置<br><strong>可能原因</strong><br><em>1</em>.  当前应用在播放音视频文件，点击继续运行就可以了<br><em>2</em>. 项目里面用了C++或者其他语言写的东东,可能会这样,all exceptions就表明,所有exceptions都会被catch,即使这个exception在代码里已经处理了的,也会被catch,高亮.如果是因为C++导致的,你可以右键点击all exceptions编辑将exception-&gt;all改为objective-c.如果不是这个原因,那你也不用管.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/11/10/安装mysql(Mac)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/10/安装mysql(Mac)/" itemprop="url">安装mysql(Mac)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T16:36:00+08:00">
+                2017-11-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术拓展/" itemprop="url" rel="index">
+                    <span itemprop="name">技术拓展</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/10/安装mysql(Mac)/" class="leancloud_visitors" data-flag-title="安装mysql(Mac)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>1.从<a href="https://dev.mysql.com/downloads/mysql/5.6.html#downloads" target="_blank" rel="external">官网</a>下载dmg格式的安装包</strong><br><img src="http://upload-images.jianshu.io/upload_images/792843-63241feab13504db.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="官网下载安装包.png"></p>
+<p><strong>2.双击下载的安装包，按‘‘继续’’/‘‘同意’’直到最后安装完成</strong><br><img src="http://upload-images.jianshu.io/upload_images/792843-08928ba15ec5c9fe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="继续.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/792843-1a43c6d35385fec9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="同意.png"><br><img src="http://upload-images.jianshu.io/upload_images/792843-0fb66d9c4a979f1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="安装.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/792843-fd5aec9eaa8bac69.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="授权.png"></p>
+<p><strong>3.为了方便使用，设置全局变量</strong><br>打开终端（Terminal）,<br><em>1)</em><code>cd ~</code></p>
+<p><em>2)</em>如果没有 <code>.bash_profile</code>文件，会创建该文件<br><code>touch .bash_profile</code></p>
+<p><em>3)</em>打开并编辑<code>.bash_profile</code>文件<br><code>open .bash_profile</code>   使用文本编辑器打开 <code>.bash_profile</code>文件<br>或者 <code>vi  .bash_profile</code>   直接在终端界面编辑 <code>.bash_profile</code>文件</p>
+<p><em>4)</em>在<code>.bash_profile</code>文件中添加路径<br><code>export PATH=${PATH}:/usr/local/mysql-5.6.38-macos10.12-x86_64/bin</code><br>路径中 <code>mysql-5.6.38-macos10.12-x86_64</code>和下载的安装包的名称保持一致<br><img src="http://upload-images.jianshu.io/upload_images/792843-0f592cd146a1be35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="mysql安装包.png"><br><em>5)</em> 保存并关闭<code>.bash_profile</code>文件<br>文本编辑器打开—保存(command+s) 关闭(command+w)<br>终端编辑的打开————-输入<code>:wq</code></p>
+<p><em>6)</em>更新刚配置的环境变量<br><code>source  .bash_profile</code></p>
+<p><strong>4.启动mysql服务器</strong><br>打开系统偏好设置——&gt;Mysql——&gt;Start Mysql Sever<br><img src="http://upload-images.jianshu.io/upload_images/792843-986d8e44b93f0986.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="mysql连接状态.png"></p>
+<p><strong>5.登录</strong><br>终端输入<code>mysql -u root -p</code><br>会提示输入密码，如果没设置过密码就直接按enter略过；<br>当看到  <code>Welcome to the MySQL monitor.xxxxxx</code>字样，表示登录成功</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/08/07/hexo-git一步一坑搭建博客/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/07/hexo-git一步一坑搭建博客/" itemprop="url">hexo+git一步一坑搭建博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-07T17:52:43+08:00">
+                2017-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术拓展/" itemprop="url" rel="index">
+                    <span itemprop="name">技术拓展</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/07/hexo-git一步一坑搭建博客/" class="leancloud_visitors" data-flag-title="hexo+git一步一坑搭建博客">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据<a href="http://qjzhixing.com/2015/08/26/" target="_blank" rel="external">这篇文章</a>使用<code>hexo+git</code>搭建真正属于自己的博客的过程中是很顺利的,但是还是在部署到远程仓库的时候还是遇到了以下几个问题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">deploy:</div><div class="line">type:git</div><div class="line">repository: git@github.com:xxxxxx.githup.io.git</div><div class="line">branch: master</div></pre></td></tr></table></figure></p>
+<h3 id="1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下"><a href="#1-修改了配置-config-yml文件之后-执行部署命令-hexo-g-hexo-s-报错如下" class="headerlink" title="1.修改了配置_config.yml文件之后,执行部署命令 hexo g/ hexo s,报错如下:"></a>1.修改了配置<code>_config.yml</code>文件之后,执行部署命令 <code>hexo g/ hexo s</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">FATAL bad indentation of a mapping entry at line 81, column 13:</div><div class="line">repository: https://github.com/NightSkyWat ...</div></pre></td></tr></table></figure>
+<p><strong><em>原因</em></strong>:hexo语法比较严格,在修改配置文件<code>_config.yml</code>之后,一定要检查冒号后面的空格!!!检查冒号后面的空格!!!检查冒号后面的空格!!!</p>
+<p><strong><em>解决</em></strong>:将修改部分<code>type/repository/branch</code>后面都有一个空格</p>
+<h3 id="2-修改问题1之后-执行部署命令hexo-d-报错如下"><a href="#2-修改问题1之后-执行部署命令hexo-d-报错如下" class="headerlink" title="2.修改问题1之后,执行部署命令hexo d,报错如下:"></a>2.修改问题1之后,执行部署命令<code>hexo d</code>,报错如下:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR Deployer not found: git</div></pre></td></tr></table></figure>
+<p><strong><em>原因</em></strong>:部署远程博客前，需要安装git<br><strong><em>解决</em></strong>:执行该命令 <code>npm install hexo-deployer-git --save</code></p>
+<h3 id="3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错"><a href="#3-使用SSH-KEY-本地生成id-rsa-和id-rsa-pub文件-并复制id-rsa-pub文件中的内容添加到帐号之后-部署-hexo-d-报错" class="headerlink" title="3.使用SSH KEY,本地生成id_rsa 和id_rsa_pub文件,并复制id_rsa_pub文件中的内容添加到帐号之后,部署(hexo d)报错:"></a>3.使用<code>SSH KEY</code>,本地生成<code>id_rsa</code> 和<code>id_rsa_pub</code>文件,并复制<code>id_rsa_pub</code>文件中的内容添加到帐号之后,部署(<code>hexo d</code>)报错:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Permission denied (publickey).</div><div class="line">fatal: Could not read from remote repository.</div><div class="line">Please make sure you have the correct access rights</div><div class="line">and the repository exists.</div><div class="line">FATAL Something&apos;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</div></pre></td></tr></table></figure>
+<p>测试当前的SSH是否配置成功,在git bash 中执行命令<code>ssh -T git@github.com</code>报错如下:<br><code>Permission denied (publickey).</code></p>
+<p><strong><em>原因</em></strong>:说明当前<code>SSH</code>没有配置成功</p>
+<p><strong><em>解决</em></strong>:<br>请确保以下2步均做到<br>1、远程服务器已经有了对应于本地主机上公钥<br>2、本地主机ssh服务开启(windows上是ssh-agent.exe运行)，并且本地主机私钥要包含在ssh服务列表中</p>
+<p>第一步已经完成,:已经将<code>id_rsa_pub</code>文件中的内容添加到了github帐号</p>
+<p>检查本地私钥是否存在于ssh服务中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh</div><div class="line">eval &apos;ssh-agent -s&apos;</div></pre></td></tr></table></figure></p>
+<p>如果运行这句出现Could not open a connection to your authentication agent，那么就先运行<br><code>ssh-agent bash</code><br>再运行<br><code>ssh-add -l</code><br>如果不存在，需要添加进去<br><code>ssh-add ~/.ssh/id_rsa</code><br>添加完成之后,再执行<code>ssh -T git@github.com</code>测试<code>SSH</code>是否配置成功!!!</p>
+<p>如果出现以下内容说明配置成功<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Hi username! You&apos;ve successfully authenticated,</div><div class="line">but GitHub does not provide shell access.</div></pre></td></tr></table></figure></p>
+<h3 id="4-执行终端命令hexo-s-并在浏览器里输入https-localhost-4000后-可以预览到修改的相关内容-但是部署到远程仓库后-成功部署-打开对应的http-username-githup-io网址却出现以下充斥着形形色色广告的界面-到底是什么原因导致的呢"><a href="#4-执行终端命令hexo-s-并在浏览器里输入https-localhost-4000后-可以预览到修改的相关内容-但是部署到远程仓库后-成功部署-打开对应的http-username-githup-io网址却出现以下充斥着形形色色广告的界面-到底是什么原因导致的呢" class="headerlink" title="4.执行终端命令hexo s,并在浏览器里输入https://localhost:4000后,可以预览到修改的相关内容,但是部署到远程仓库后(成功部署),打开对应的http://username.githup.io网址却出现以下充斥着形形色色广告的界面,到底是什么原因导致的呢?"></a>4.执行终端命令<code>hexo s</code>,并在浏览器里输入<a href="https://localhost:4000/" target="_blank" rel="external">https://localhost:4000</a>后,可以预览到修改的相关内容,但是部署到远程仓库后(成功部署),打开对应的<a href="https://nightskywatchers.githup.io" target="_blank" rel="external">http://username.githup.io</a>网址却出现以下充斥着形形色色广告的界面,到底是什么原因导致的呢?</h3><p><img src="http://upload-images.jianshu.io/upload_images/792843-7b1415990378b3f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="仓库名称错误.png"><br>最后经过排查找出错误原因:<br>因为自己错误的拼写习惯,错把<code>github</code>拼成了<code>githup</code>,<br>修改了 <strong>userName.github.io</strong> 和 <strong><code>_config.yml</code>中<code>repository:</code>键值</strong>之后,顺序执行 <code>hexo clean / hexo g /hexo d</code>命令重新部署到远程仓库, 并进入对应的 <a href="https://nightskywatchers.github.io" target="_blank" rel="external">http://username.github.io</a></p>
+<p>###大功告成!!!</p>
+<p><strong>参考</strong><br><a href="http://blog.csdn.net/binyao02123202/article/details/20130891" target="_blank" rel="external">github设置添加SSH</a><br><a href="http://blog.csdn.net/beslow/article/details/33727917" target="_blank" rel="external">Permission denied (publickey)</a><br><a href="http://www.jianshu.com/p/588cb1cc077a" target="_blank" rel="external">Hexo博客搭建中的坑</a><br><a href="http://www.jianshu.com/p/4eaddcbe4d12" target="_blank" rel="external">5分钟 搭建免费个人博客</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/08/03/梳理易引起retain-cycle的场景(使用block)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/03/梳理易引起retain-cycle的场景(使用block)/" itemprop="url">梳理易引起retain-cycle的场景(使用block)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-03T11:17:00+08:00">
+                2017-08-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/08/03/梳理易引起retain-cycle的场景(使用block)/" class="leancloud_visitors" data-flag-title="梳理易引起retain-cycle的场景(使用block)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>开发以及面试中,经常涉及到使用block的需要注意的问题—-循环引用,趁此时机梳理相关block引起循环引用的场景:</li>
+</ul>
+<ol>
+<li>使用通知(notification) 系统自带的block方法,在block中使用self–&gt;会发生循环引用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">TwoVC  .m文件</div><div class="line"></div><div class="line">-(void)dealloc &#123;</div><div class="line">NSLog(@&quot;%s&quot;,__func__);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">[super viewDidLoad];</div><div class="line">self.view.backgroundColor = [UIColor orangeColor];</div><div class="line">// Do any additional setup after loading the view.</div><div class="line">//__weak typeof(self) weakSelf = self; //弱引用</div><div class="line">[[NSNotificationCenter defaultCenter] addObserverForName:@&quot;testBlock&quot; object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) &#123;</div><div class="line">//__strong typeof(self) strongSelf = weakSelf;</div><div class="line">NSDictionary *userInfo = note.userInfo;</div><div class="line">NSLog(@&quot;userInfo--%@ -- self.view - %p&quot;,userInfo,self.view);</div><div class="line">&#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewWillDisappear:(BOOL)animated &#123;</div><div class="line">[super viewWillDisappear:animated];</div><div class="line">[[NSNotificationCenter defaultCenter] removeObserver:self];</div><div class="line">NSLog(@&quot;%s&quot;,__func__);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><em>控制台输出</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">2017-08-02 17:09:31.131 testBlock[36251:3586073] userInfo--&#123;</div><div class="line">Project = testNotificationBlock;</div><div class="line">&#125; -- self.view - 0x7fff0b501980</div><div class="line">2017-08-02 17:09:34.073 testBlock[36251:3586073] -[TwoVC viewWillDisappear:]</div></pre></td></tr></table></figure></p>
+<p>######结论: 当前VC没有被释放,添加弱引用后,VC被释放掉;存在retain-cycle</p>
+<ol>
+<li>使用MJRefresh框架中返回上下拉刷新的block方法,在block中使用self–&gt;会发生循环引用<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">ThreeVC  .m文件</div><div class="line"></div><div class="line">-(void)dealloc &#123;</div><div class="line">NSLog(@&quot;%s&quot;,__func__);</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">[super viewDidLoad];</div><div class="line">// Do any additional setup after loading the view.</div><div class="line">self.view.backgroundColor = [UIColor whiteColor];</div><div class="line">self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];</div><div class="line">[self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@&quot;cell&quot;];</div><div class="line">self.tableView.dataSource = self;</div><div class="line">//    __weak typeof(self) weakSelf = self;//(弱引用)</div><div class="line">self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^&#123;</div><div class="line">//        __strong typeof(self) strongSelf = weakSelf;</div><div class="line">NSLog(@&quot;MJrefresh --下拉刷新&quot;);</div><div class="line">[[NSNotificationCenter defaultCenter] postNotificationName:@&quot;testBlock&quot; object:nil userInfo:@&#123;@&quot;Project&quot;:@&quot;testNotificationBlock&quot;&#125;];</div><div class="line">[self endrefresh];</div><div class="line"></div><div class="line">&#125;];</div><div class="line">[self.tableView.mj_header beginRefreshing];</div><div class="line"></div><div class="line">[self.view addSubview:self.tableView];</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (void)viewWillDisappear:(BOOL)animated &#123;</div><div class="line">[super viewWillDisappear:animated];</div><div class="line">NSLog(@&quot;%s&quot;,__func__);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p><em>控制台输出</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2017-08-03 10:39:44.381 testBlock[37278:3717266] MJrefresh --下拉刷新</div><div class="line">2017-08-03 10:39:44.382 testBlock[37278:3717266] userInfo--&#123;</div><div class="line">Project = testNotificationBlock;</div><div class="line">&#125; -- self.view - 0x7f8747406440</div><div class="line">2017-08-03 10:39:55.641 testBlock[37278:3717266] -[ThreeVC viewWillDisappear:]</div></pre></td></tr></table></figure></p>
+<p>######结论: 当前VC没有被释放,添加弱引用后,VC被释放掉;存在retain-cycle</p>
+<p>3.强引用自定义的属性block,并在block中使用self–&gt;,会引起循环引用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">/** block */</div><div class="line">@property (nonatomic, copy) void(^myblock)();</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation FourVC</div><div class="line"></div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">[super viewDidLoad];</div><div class="line">self.view.backgroundColor = [UIColor yellowColor];</div><div class="line">_myblock = ^ &#123;</div><div class="line">NSLog(@&quot;--%p&quot;,self.view);</div><div class="line">&#125;;</div><div class="line">_myblock();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><em>控制台输出</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2017-08-03 11:17:51.409 testBlock[37510:3750978] --0x7f8e7d70b460</div><div class="line">2017-08-03 11:17:55.696 testBlock[37510:3750978] -[FourVC viewWillDisappear:]</div></pre></td></tr></table></figure></p>
+<p>######结论: 1)报警告 2)当前VC没有被释放,添加弱引用后,VC被释放掉;存在retain-cycle</p>
+<p><code>未完待续,欢迎指正/添加</code><br><a href="https://github.com/NightSkyWatchers/testBlock" target="_blank" rel="external">测试代码奉上</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/07/28/block中成员变量和属性的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/28/block中成员变量和属性的区别/" itemprop="url">block中成员变量和属性的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T16:25:00+08:00">
+                2017-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/07/28/block中成员变量和属性的区别/" class="leancloud_visitors" data-flag-title="block中成员变量和属性的区别">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>person模型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.h文件</div><div class="line">#import &lt;Foundation/Foundation.h&gt;</div><div class="line">@interface person : NSObject</div><div class="line">/** block */</div><div class="line">@property (nonatomic, copy) void(^ageBlock)(int age);</div><div class="line">@end</div><div class="line"></div><div class="line">.m文件</div><div class="line">#import &quot;person.h&quot;</div><div class="line">@implementation person</div><div class="line"></div><div class="line">@end</div></pre></td></tr></table></figure>
+</li>
+<li><p>testVC</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.m文件</div><div class="line">#import &quot;person.h&quot;</div><div class="line">#import &quot;testViewController.h&quot;</div><div class="line"></div><div class="line">@interface testViewController ()</div><div class="line">/** person */</div><div class="line">@property (nonatomic, strong) person *p;</div><div class="line">/** value */</div><div class="line">@property (nonatomic, assign) int value;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line">@implementation testViewController &#123;</div><div class="line">int _value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>####属性<br>1.在生成对应的成员变量<code>_value</code>的同时;<br>2.也会自动生成setter/getter方法.<br>使用self.value实际在调用两个方法来实现对变量的操作.</p>
+<p><em>测试代码如下:</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">-(void)dealloc &#123;</div><div class="line">NSLog(@&quot;释放当前vc对象&quot;);</div><div class="line">&#125;</div><div class="line">- (void)viewDidLoad &#123;</div><div class="line">[super viewDidLoad];</div><div class="line">self.p = [[person alloc] init];</div><div class="line"></div><div class="line">__weak typeof(self) weakSelf = self;</div><div class="line">self.p.ageBlock = ^(int age) &#123;</div><div class="line"></div><div class="line">//1.1 成员变量写法(自动报警,提示会产生循环引用)</div><div class="line">_value = 50;</div><div class="line">NSLog(@&quot;_value-----%d&quot;,_value);</div><div class="line"></div><div class="line">// 1.2等价成员变量(自动报警,提示会产生循环引用)</div><div class="line">self-&gt;_value = 30;</div><div class="line">NSLog(@&quot;self-&gt;_value---%d&quot;,self-&gt;_value);</div><div class="line"></div><div class="line">// 1.3成员变量弱引用(报错)</div><div class="line">//weakSelf-&gt;_value = 20;</div><div class="line">//NSLog(@&quot;weakSelf-&gt;_value----%d&quot;,weakSelf-&gt;_value);</div><div class="line"></div><div class="line">// 1.4成员变量weak-strong dance</div><div class="line">__strong typeof(self) strongSelf = weakSelf;</div><div class="line">strongSelf-&gt;_value = 10;</div><div class="line">NSLog(@&quot;strongSelf-&gt;_value--%d&quot;,strongSelf-&gt;_value);</div><div class="line"></div><div class="line"></div><div class="line">//2.1属性未弱引用写法(自动报警,提示会产生循环引用)</div><div class="line"></div><div class="line">self.value = 50;</div><div class="line">NSLog(@&quot;%d&quot;,self.value);</div><div class="line"></div><div class="line">//2.3 属性的写法(由成员变量可以类推到也会有风险,推荐使用weak-strong dance方式)</div><div class="line">weakSelf.value = age;</div><div class="line">NSLog(@&quot;%d&quot;,weakSelf.value);</div><div class="line"></div><div class="line">//2.3 属性的写法(weak-strong dance)</div><div class="line">__strong typeof(self) strongSelf = weakSelf;</div><div class="line">strongSelf.value = age;</div><div class="line"></div><div class="line">NSLog(@&quot;%d&quot;,strongSelf.value);</div><div class="line">&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">self.p.ageBlock(10);</div></pre></td></tr></table></figure></p>
+<p><em>几种写法最终测试结果如下</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">1.1 没有释放当前vc,说明当前vc继续被强引用,没有被销毁</div><div class="line">2017-07-28 15:02:25.114 test_Property[20484:1869126] _value-----10</div><div class="line">2017-07-28 15:02:26.325 test_Property[20484:1869126] -[testViewController viewWillDisappear:],控制器pop出去</div><div class="line"></div><div class="line">1.2 没有释放当前vc,说明当前vc继续被强引用,没有被销毁</div><div class="line">2017-07-28 15:13:12.727 test_Property[20539:1878132] self-&gt;_value---10</div><div class="line">2017-07-28 15:13:14.764 test_Property[20539:1878132] -[testViewController viewWillDisappear:],控制器pop出去</div><div class="line"></div><div class="line">1.3 见下面 xcode自测报错图</div><div class="line"></div><div class="line">1.4 释放当前vc,并被销毁</div><div class="line">2017-07-28 15:17:27.160 test_Property[20568:1883004] strongSelf-&gt;_value--10</div><div class="line">2017-07-28 15:17:28.627 test_Property[20568:1883004] -[testViewController viewWillDisappear:],控制器pop出去</div><div class="line">2017-07-28 15:17:29.131 test_Property[20568:1883004] 释放当前vc对象</div><div class="line"></div><div class="line">2.1 没有释放当前vc,说明当前vc继续被强引用,没有被销毁</div><div class="line">2017-07-28 15:19:04.250 test_Property[20583:1884117] 10</div><div class="line">2017-07-28 15:19:05.301 test_Property[20583:1884117] -[testViewController viewWillDisappear:],控制器pop出去</div><div class="line"></div><div class="line">2.2 释放当前vc,并被销毁</div><div class="line">2017-07-28 15:21:50.294 test_Property[20621:1886605] 10</div><div class="line">2017-07-28 15:21:51.488 test_Property[20621:1886605] -[testViewController viewWillDisappear:],控制器pop出去</div><div class="line">2017-07-28 15:21:51.994 test_Property[20621:1886605] 释放当前vc对象</div><div class="line"></div><div class="line">2.3 释放当前vc,并被销毁</div><div class="line">2017-07-28 15:22:52.713 test_Property[20637:1887821] 10</div><div class="line">2017-07-28 15:22:54.250 test_Property[20637:1887821] -[testViewController viewWillDisappear:],控制器pop出去</div><div class="line">2017-07-28 15:22:54.756 test_Property[20637:1887821] 释放当前vc对象</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/792843-331026e26b9400ed.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="xcode自测警告图.png"></p>
+<p><code>Capturing &#39;self&#39; strongly in this block is likely to lead to a retain cycle</code></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/792843-ad8acf6747f6403e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="xcode自测报错图.png"></p>
+<p><code>Dereferencing a __weak pointer is not allowed due to possible null value caused by race condition, assign it to strong variable first</code></p>
+<p>简单翻译一个SO的答案：<a href="http://stackoverflow.com/questions/9086736" target="_blank" rel="external">Why would you use an ivar?</a>，展开说一下成员变量的好处。</p>
+<ul>
+<li><p>封装<br>如果成员变量是private，程序中的其它对象很难直接访问该成员变量。如果是属性，相对更容易用父类方法读写属性。</p>
+</li>
+<li><p>性能<br>成员变量地址可以根据实例的内存地址偏移寻址。而属性的读写都需要函数调用，相对更慢。</p>
+</li>
+<li><p>非基础类型<br>对于复杂的C++类型，往往设为成员变量更合适，也许这种类型不支持copy，或者完全复制很麻烦。</p>
+</li>
+<li><p>多线程<br>多线程环境下，为保证数据一致性，在需要同步执行的代码段更应该使用成员变量。如果对需要同步更新的数据用getter/setter 方法，数据更新效率低，会带来更多的获取锁请求失败。</p>
+</li>
+<li><p>程序正确性<br>成员变量可以做直观的内存管理。属性可以一层层继承，还可以复写。容易出错。</p>
+</li>
+<li><p>二进制文件的体积<br>默认用属性，会生成不必要的getter/setter 方法，程序体积会变大。</p>
+</li>
+</ul>
+<p><strong>注意:</strong><br>在block中最好使用属性,并使用weak-strong dance弱引用<br>使用成员变量(_value)常常忽略掉前面的self指针,容易产生循环引用的,泄露内存;</p>
+<p>参考文章:<br><a href="https://segmentfault.com/q/1010000000185056" target="_blank" rel="external">属性(property)与成员变量(ivar)有什么区别</a><br><a href="https://cnbin.github.io/blog/2015/12/07/ioszhong-self-dot-he-xia-hua-xian-de-qu-bie/" target="_blank" rel="external">iOS中self.和下划线的区别</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/05/24/A nested bundle contains simulator platform listed in xxxx Info.plist key/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -982,1064 +1955,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/02/19/友盟推送那些问题(iOS10)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/02/19/友盟推送那些问题(iOS10)/" itemprop="url">友盟推送那些问题(iOS10)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-19T21:36:00+08:00">
-                2017-02-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">研发随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2017/02/19/友盟推送那些问题(iOS10)/" class="leancloud_visitors" data-flag-title="友盟推送那些问题(iOS10)">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>上周，公司要实现推送通知的功能，并决定在项目中集成友盟推送的 SDK来代替之前集成的云巴推送。</p>
-<p>云巴推送是什么鬼？让我们来看看它的功能和使用场景。</p>
-<p>云巴是一个覆盖全国（即将覆盖美国欧洲）的实时消息发布订阅系统，可以以毫秒级的速度向百万乃至千万终端用户发送大量的消息。云巴适用于对实时性和到达率要求高的应用、游戏、设备。云巴支持手机、平板、笔记本、智能硬件、智能家居等作为终端。</p>
-<p>云巴在 Github 上开源地址，云巴使用轻量级的 MQTT 作为协议，主要编程语言为 Erlang。云巴支持 IOS, Android, JavaScript, Socket.IO, PHP, C, C#等语言，可以从任一终端向另一终端发送消息。</p>
-<p>云巴的特点是：高并发、低耗费、毫秒级、跨平台、跨设备、跨语言。</p>
-<p>云巴的应用场景包括：双向消息推送，私信，即时聊天，多人大型游戏，租车打车通知，远程摄像头控制，远程开关空调，实时更新股票走势，实时更新库存量，活动文字直播，实时地理位置地图，智能硬件的 APP 控制，实时统计图表。</p>
-<p>其实云巴和友盟在实现推送功能方面没什么太大区别，只是因为云巴推送是在项目赶工期时的产品，具体的交互界面以及参数都没来得及定！所以推送在本次开发任务中交给了不大熟知云巴的我来做，因此换成了被大家熟悉且曾经集成过的友盟推送！</p>
-<p>下面介绍一些集成中常出的问题以及自己出现的问题：</p>
-<p>1.友盟后台添加新应用，需要上传 P12文件，而 pem 文件是不能上传成功的（本人没有上传成功）</p>
-<p>本人从钥匙串中导出文件是只能导出为 pem 文件，但是导出的 pem 文件却不能被友盟后台识别转换</p>
-<p>后来发现所导出的证书下面缺少了私钥，并且左侧没有三角标识，如下图：</p>
-<p>于是使用公司的苹果开发者帐号里面重新生成了一套 SSL证书（包含私钥，呈现下三角标识），如下图：</p>
-<p>左侧的三角标识显示为上图状况时，导出的p12文件才是友盟后台所需要的证书文件（而非钥匙串的 p12文件），把导出的 p12文件（设置密码<strong>*</strong>）上传到友盟后台，并在相应位置输入刚才设置的相对应证书的密码即可添加应用成功；</p>
-<p>随后就可以在  应用信息  一栏中查看应用刚刚添加的应用的 Appkey 和 AppMaster Secret，并可以设置公司推送服务器的IP 地址</p>
-<p>2.通过 DeviceToken在友盟后台添加测试设备</p>
-<p>查看友盟官方相关deviceToken问题的论坛</p>
-<p>2.1<br>1）使用didRegisterForRemoteNotificationsWithDeviceToken：（NSData *）token获取 token并使用 NSLog 方法打印出来，但是打印出来的 token 如下图：</p>
-<p>2.2<br>2）此时把以上字符串复制粘贴到图2.1的空格中，会标红报错——Device Token不能包含特殊字符，</p>
-<p>分析原因得知：刚才拷贝的内容包含尖括号&lt;&gt;以及空格，所以处理办法是——去掉&lt;&gt;和空格后；</p>
-<p>3）根据上一步分析，在图2.1空白处将拷贝的内容修改过后，发现仍然报错——Device Token长度错误</p>
-<p>分析原因得知：第一步拷贝到2.1图中空白处的内容因为包含空格和尖括号，所以长度已经超出了64，达到了73，而空白处提示 “输入64位<em>*</em>“，所以此处拷贝过来的内容已经被截取了前64位，导致后面的一些字符串被删除掉了，即使删除了尖括号和空格，就会导致被自动截取的前64位中有效的字符串（非空格，非尖括号）不足64位， 所以最有效的处理方法就是———从 1）中拷贝的 token 去除尖括号以及空格</p>
-<p>于是获取 token 的方法就使用如下方法：</p>
-<p>DeLog(@”UmengDeviceToken-%@”,[[[[deviceToken description] stringByReplacingOccurrencesOfString: @”&lt;” withString: @””]</p>
-<p>stringByReplacingOccurrencesOfString: @”&gt;” withString: @””]</p>
-<p>stringByReplacingOccurrencesOfString: @” “ withString: @””]);</p>
-<p>4）通过3）获取的 token 拷贝粘贴到空白处，并填写设备名称加以区分，即可添加成功测试设备。</p>
-<p>3.友盟后台测试单播和自定义播（alias）都能成功，而公司服务器测试单播可成功，而 alias 报2010错误</p>
-<p>查看友盟与Alias对应的Device_token 为空的官方论坛 &amp;&amp; 单播可收到，广播收不到的官方论坛</p>
-<p>1）检查 iOS 客户端代码是否设置别名成功</p>
-<p>客户端设置别名（Alias）代码如下：</p>
-<p>[UMessage setAlias:@”alias1310” type:@”alias” response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {</p>
-<p>DeLog(@”成功返回数据–%@”,responseObject);</p>
-<p>}];</p>
-<p>并且打印信息显示：成功返回数据–{success = ok}</p>
-<p>2）通过友盟后台的工具检测设置的 alias 是否成功</p>
-<p>3）因为安卓都 OK，考虑到安卓和 iOS 的后台是分开集成的，所以让后台人员配合检查其后台相关代码</p>
-<p>后台人员检查无误！！！</p>
-<p>4)闹心有木有，到底哪里出了问题呢？？</p>
-<p>有点信不过后台哥们，于是跑到后台看他们的代码以及相关文档如下：</p>
-<p>他们也有个 alias_type:”xx”，阅读后面描述发现端倪，于是查看后台代码中alias_type 值发现：我的代码中的 type 类型值 和后台的竟然没有统一写成一致的，是不是这个问题导致的呢？？？</p>
-<p>于是飞速再键盘上敲下了相同的 alias_type 值，经过测试发现 OK 啦！  报的错误和真正的问题根源还是不大一样的！哦耶</p>
-<p>4.自定义弹框偶尔 会弹出两个弹框——自定义的弹框+友盟的默认弹框</p>
-<p>这个问题最初没有发现，后来有一次做断点调试的过程中，发现：两个弹框的Bug必现！！！！！</p>
-<p>1）因为测试机是 iOS10以下系统，所以在方法 代理方法 didReceiveRemoteNotification： fetchCompletionHandler： 中查看是否关闭友盟弹框</p>
-<p>如果是 iOS10系统，需要再方法userNotificationCenter： willPresentNotification： withCompletionHandler： 中查看是否关闭友盟弹框</p>
-<p>结果如下图：</p>
-<p>2）查看 友盟推送demo中的代码，是否调用了相同的方法</p>
-<p>结果如下图：</p>
-<p>比较二者，有没有发现二者的区别；两个方法的调用顺去颠倒也会出现 Bug 的，瞬间解决，哦耶！！！</p>
-<p>5.在友盟后台测试推送通知时，客户端经常收不到通知！！！</p>
-<p>1)请跳转到知乎相关网址去查找相对应的原因;</p>
-<p>2)网络很差，推送有延迟，稍等1-3分钟即可收到；</p>
-<p>这就是目前在集成友盟推送的开发过程中遇到的一些小插曲，</p>
-<p>希望有同样的问题的人可以通过以上解决方法能够顺利解决！！谢谢</p>
-<p>如有更多问题请移步到 【友盟+】消息推送常见问题索引</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2016/07/25/苹果内购(IAP)调研报告/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/07/25/苹果内购(IAP)调研报告/" itemprop="url">苹果内购(IAP)调研报告</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-25T08:18:00+08:00">
-                2016-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">研发随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/07/25/苹果内购(IAP)调研报告/" class="leancloud_visitors" data-flag-title="苹果内购(IAP)调研报告">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>一.适用情况:</p>
-<p>什么时候使用苹果内购?为什么时候苹果内购?</p>
-<p>在苹果制定的游戏规则中，所有在App内提供的服务需要付费时，都应当使用IAP，比如解锁软件功能、游戏道具；所有在App外提供的服务需要付费时，都应使用其他支付方式，比如比如淘宝、京东等一堆电商，他们的商品都是不存在于App中的。</p>
-<p>列举一些相关实例,</p>
-<p>1.在IAP里，可以出售：</p>
-<p>数字内容：比如杂志、图片、游戏关卡解锁、相机付费滤镜等；</p>
-<p>软件功能：如各种扩展features；</p>
-<p>一次性服务：比如一次语音通话等。</p>
-<p>2.在IAP里，不能出售:</p>
-<p>现实世界的商品或服务</p>
-<p>3.现在有很多比如网易云课堂，腾讯课堂等等在线教育App，可以在App中购买视频并在APP中观看，也就是说’观看视频’这个功能是本身就存在于APP中的，只是需要你先购买视频，才能使用’观看视频’这个功能，这个时候，这种解锁APP已有功能的操作，就必须要使用iap</p>
-<p>当然，肯定有APP不是这样，毕竟谁也不愿意让苹果抽那么多钱，那些APP也许是用了一些什么欺骗手段，比如后台写个开关，审核的时候打开，所有功能都能使用，上线后再关闭开关啊什么的。这样的APP有可能随时会被警告并下架，严重点的封号也不是没可能  o(╯□╰)o</p>
-<p>第三点就提到了为什么使用苹果内购? 极大降低了应用审核被拒的风险以及被迫下架的可能性,还可以大力推广应用的付费功能.</p>
-<p>二.关于商品类型：iap创建商品时选择的商品类型大概分三类</p>
-<p>1.消耗型商品：</p>
-<p>就是类似游戏中的钻石，还有现在某些APP中的货币，比如什么鱼丸，鱼翅什么的，会被消耗的，要选择消耗型商品</p>
-<p>2.非消耗型商品：</p>
-<p>无法被消耗的商品，比如上文提到的视频课程，一次购买，就应该永久可以观看，视频你怎么消耗？打赏多少多少视频？o(╯□╰)o</p>
-<p>3.订阅类型商品：</p>
-<p>多用于会员，需要注意的一个地方就是苹果似乎没有保存期限，所以这个期限要后台保存的.另外需要注意的一个地方是当APP中有过订阅类型商品，注意是有过，曾经有过删除也算的，这个APP是无法转移账号的.</p>
-<p>三.在itunes connect 里面签署相关协议</p>
-<p>将上图标注的关于联系人信息,税务,银行信息填写完成就ok.</p>
-<p>四.添加内购项目</p>
-<p>五.应用内代码实现 &amp;&amp; 沙盒测试</p>
-<p>可以参考此博客,博客中介绍的比较详尽.</p>
-<p>六.内购的两种模式—内置模式 &amp;&amp; 服务器模式(相对可靠,安全,首选)</p>
-<p>使用内置模式。 需要交付的产品已经在程序内部。 这种方式通常用在一些被锁定的功能上。 也可以用来交付在程序束（App Bundle）中的内容。 该方式的一个重要的优点是你可以及时的给客户交付产品，大多数的内置产品应为非消耗性商品。</p>
-<p>使用服务器模式，要提供另外的服务器将产品发送给程序。 服务器交付适用于订阅、内容类商品和服务，因为商品可以作为数据发送，而不需改动程序束。 例如，一个游戏提供的新的内容（关卡等）。 Store Kit不会对服务器端的设计和交互做出定义，这方面工作需要你来完成。 而且，Store Kit不提供验证用户身份的机制，你需要来设计。 如果你的程序需要以上功能，例如，纪录特定用户的订阅计划， 你需要自己来设计和实现。</p>
-<p>1.内置模式的流程：</p>
-<p>app从app store 获取产品信息</p>
-<p>用户选择需要购买的产品</p>
-<p>app发送支付请求到AppStore</p>
-<p>AppStore处理支付请求,返回transaction信息</p>
-<p>app将购买的内容展示给用户</p>
-<p>2.服务器模式的流程:</p>
-<p>app从服务器获取产品标识列表</p>
-<p>app从app store 获取产品信息</p>
-<p>用户选择需要购买的产品</p>
-<p>app 发送支付请求到AppStore</p>
-<p>AppStore处理支付请求,返回transaction信息</p>
-<p>app将 transaction receipt 发送到服务器</p>
-<p>服务器收到收据后发送到app stroe验证收据的有效性</p>
-<p>app store 返回收据的验证结果</p>
-<p>根据app store 返回的结果决定用户是否购买成功</p>
-<p>上述两种模式的不同之处主要在于：交易的收据验证，内建模式没有专门去验证交易收据，而服务器模式会使用独立的服务器去验证交易收据。内建模式简单快捷，但容易被破解。服务器模式流程相对复杂，但相对安全</p>
-<p>开发之初，苹果官方就很负责的告知:我们的服务器不稳定。真正开发之后，发现苹果方果然是很负责的，不仅是不稳定，而且足够慢。app store server验证一个收据需要3-6s时间</p>
-<p>用户能否忍受3-6s的等待时间</p>
-<p>如果app store server 宕机，如何确保成功付费的用户能够得到正常服务。</p>
-<p>对于第一个问题，我们有理由相信用户完全无法忍受，所以采用异步验证的方式，服务器收到客户端的请求后，就将请求放到MCQ中去处理。</p>
-<p>对于第二个问题，由于苹果人员很负责人的告知：我们的服务器不稳定，所以不排除收据验证超时的情况。对于验证超时的收据，保存到数据库中并标记为验证超时，定时任务每隔一定的时间去app store验证，确保能够获取收据的验证结果。此处摘自博客</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2016/01/12/设置tableView的分割线顶两端/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2016/01/12/设置tableView的分割线顶两端/" itemprop="url">设置tableView的分割线顶两端</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-12T11:11:00+08:00">
-                2016-01-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">研发随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2016/01/12/设置tableView的分割线顶两端/" class="leancloud_visitors" data-flag-title="设置tableView的分割线顶两端">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在最近的项目中设计图如下<br><img src="https://upload-images.jianshu.io/upload_images/792843-a630b65bc5a5f1d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/421" alt="示例图.png"></p>
-<p>分割线顶在 两端，于是搜集了相关的实现方法</p>
-<p>在控制器空加入如下代码，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLayoutSubviews &#123;</div><div class="line"></div><div class="line">    [super viewDidLayoutSubviews];</div><div class="line"></div><div class="line">    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</div><div class="line">        [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</div><div class="line">        [self.tableView setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>并且cell的相关设置方法- (UITableViewCell <em>)tableView:(UITableView </em>)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 中调用下列方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)setSeparatorInsetForCell:(UITableViewCell*)cell &#123;</div><div class="line"></div><div class="line">    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];</div><div class="line">    </div><div class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</div><div class="line">        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</div><div class="line">        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这是比较小众的方法来实现 特定的需求。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/12/10/iOS的后台机制/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/12/10/iOS的后台机制/" itemprop="url">iOS的后台机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-10T00:00:00+08:00">
-                2015-12-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">研发随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2015/12/10/iOS的后台机制/" class="leancloud_visitors" data-flag-title="iOS的后台机制">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近在修改项目中的bug过程中,遇到了 设备锁屏无法定位的情况.</p>
-<p>于是搜查了Apple相关的后台机制,<a href="http://mobile.hiapk.com/evaluate/special/131012/1457001_2.html" target="_blank" rel="external">原文在此</a></p>
-<p>OS 7中，实际上APP拥有四种后台模式，无论是哪一种后台机制，均需要利用苹果给予的相应后台接口实现。IOS7系统中，开发者可以灵活利用多种后台接口（API）实现更加智能的应用操作。</p>
-<h5 id="一、无后台仅推送"><a href="#一、无后台仅推送" class="headerlink" title="一、无后台仅推送"></a>一、无后台仅推送</h5><p>第 一种后台方式为传统的无后台操作，仅有苹果推送机制，这种方式出现在iOS 3.x以下的大部分系统版本上。这个方式下，应用在按下Home键后即会关闭退出，其数据通过苹果搭建的推送服务器传输，并不需要应用后台运行。这种方式 不太好的原因在于，每次推出后，重新进入均需要重新加载，虽然推送能够统一解决数据和信息的传输，但遇到需要频繁进入应用（如聊天APP）的时候便会显得 体验不好。</p>
-<h5 id="二、墓碑式"><a href="#二、墓碑式" class="headerlink" title="二、墓碑式"></a>二、墓碑式</h5><p>第二种方式为墓碑式的后台机制，这在iOS 4后被大量采用，也就是人们所说的伪多任务。这方式相比较第一种改进的地方在于，按下Home键至主界面后，应用随即进入后台，但其被冻结，并不能进行任何操作。</p>
-<h5 id="三、智能调度后台"><a href="#三、智能调度后台" class="headerlink" title="三、智能调度后台"></a>三、智能调度后台</h5><p>第三种为系统智能调度的后台，iOS 7新增的background fetch， 这个后台接口在苹果WWDC 2013上有提及，其会根据用户行为自动调整达到效率最优的后台模式，能够处理不是很有时效性的信息获取。例如一些社交、新闻类的应用的后台信息更 新，iOS系统便会根据应用启动频率、时间和当前网络和电量的状况来智能分配每个应用的后台获取频率和启动时长。</p>
-<p>由于拥有该接口的应用的数据后台 刷新操作是统一调度的，因此系统可以在一个进程里面获得多个应用的数据，类似统一的推送机制，这样就能够最大限度地省电。 不过这个方式也有一个缺点，那便是开发者不能设定数据具体什么时候更新，因此这个后台方式只能应用在一些时效性和敏感度不高的地方。</p>
-<h5 id="四、真后台"><a href="#四、真后台" class="headerlink" title="四、真后台"></a>四、真后台</h5><p>第四种方式便是真后台机制，但iOS的真后台与Android的后台机制是不一样的，为了兼顾系统体验和统一进程管理，iOS在这上面加入了众多的限制。大致拥有以下几个后台接口模式：</p>
-<p><em>*1、Background Audio，这是后台的音频，这个很早之前便有，也是iOS设备中用得最多的后台应用，调用这个接口可以实现后台的音乐播放。</em></p>
-<p><em>2、Location Services，这是后台的定位，系统会拥有统一页面进行管理。</em></p>
-<p><em>3、VoIP，后台语音服务，类似Skype通话应用需要调用，可进行后台的语音通话。</em></p>
-<p><em>4、Newsstand，报刊杂志后台自动下载更新，其能够自动实时更新。</em></p>
-<p><em>5、 Background Task  Completion，这个接口早在iOS 4时候便拥有，其可以供任意类型的APP使用，不过在旧系统中，这个接口的后台限制运行时间仅为10分钟，意味着当应用退至后台，其后台运行仅能持续10 分钟便会转至休眠状态。iOS 7中对这个接口作出了改变，原来的为连续10分钟，即不论你这10分钟内用户是否关闭屏幕进入休眠状态，应用仍然会在后台等待10分钟完结后推出，而新的 改进为假如遇到关闭屏幕休眠的情况，这后台运行的10分钟便会跟随一同休眠，剩余的后台时间将会留待用户再一次唤醒设备才计算。这样后台运行的时间仍然为 10分钟，但并不连续，这样做的优点为省电。</em></p>
-<p><em>如现在有一些词典应用带有后台复制选词功能，实际上其是利用了这个接口，如果用户开启词典后并推出，即使屏幕关闭，但词典仍然在后台运行，电量消耗还是比较大的，在iOS 7上，这个问题可以得到解决。</em></p>
-<p><em>6、 Remote Notification，这是本次较大的一个改进接口，以往聊天类应用接受推送后点进去需要再收一次信息，这情况在QQ、微信等应用上最为明显。不过拥 有了这个接口后，这情况将不复存在，以后推送将能够直接启动后台任务。值得注意的是remote notification支持silent notification（静默推送），这样dropbox这类同步应用可以在后台以最节能的模式实时静默同步了，类似布卡漫画这种也可以推送正在追的漫 画的新章节并在后台静默下载，待到下载好再给用户发送一个本地推送，用户点开即看无需再联网</em></p>
-<p><em>7、Background Transfer Service，后台上传下载。iOS最接近传统多任务的后台接口，可供任意类型的app调用，无时间限制。应用场景包括后台上传和下载数据，这使得游戏 后台更新数据包，后台上传视频等等都成为可能，但是正如其名字，它只能用于处理上传下载这种传输类的任务，类似后台剪切板监控这种它就无能为力了。</em></p>
-<p>可以在TARGETS中查找相关选项即可查找到background模式的相关设置,并且这些设置最后会在pilist文件中有体现…<br><a href="https://upload-images.jianshu.io/upload_images/792843-dc4334f796047f41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" target="_blank" rel="external">示例图</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/11/23/Appdelegate中代理方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/11/23/Appdelegate中代理方法/" itemprop="url">Appdelegate中代理方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-23T11:07:00+08:00">
-                2015-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">研发随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2015/11/23/Appdelegate中代理方法/" class="leancloud_visitors" data-flag-title="Appdelegate中代理方法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>最近项目要加上一个手势解锁，然而手机解锁的逻辑十分混乱，需要与应用程序启动、应用前后台切换执行的delegate 方法分析清楚！</p>
-<p>1.起初需求：要在程序第一次启动时，就需要设置解锁手势，于是在代理方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application中写了相关判断方法；</div></pre></td></tr></table></figure></p>
-<p>2.需求改变：要在用户有需求时设置手势解锁；于是在代理方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application中卸了相关判断方法。</div></pre></td></tr></table></figure></p>
-<p>3.在此过程中，仔细琢磨了 Appdelegate 中代理方法在前后台切换中的执行</p>
-<p>首次运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</div><div class="line"></div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application</div></pre></td></tr></table></figure></p>
-<p>首次关闭（home）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillResignActive:(UIApplication *)application</div><div class="line"></div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</div></pre></td></tr></table></figure></p>
-<p>再次运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application</div><div class="line"></div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application</div></pre></td></tr></table></figure></p>
-<p>再次关闭：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillResignActive:(UIApplication *)application</div><div class="line"></div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</div></pre></td></tr></table></figure></p>
-<p>除此之外，再附上两个使用过的比较好的手势解锁框架—–LLLockView 和 CoreLock</p>
-<p>非常感谢两位人员，为我们提供了如此强大的开源框架！</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/03/07/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2015/03/07/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-07T17:52:43+08:00">
-                2015-03-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术拓展/" itemprop="url" rel="index">
-                    <span itemprop="name">技术拓展</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2015/03/07/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2090,7 +2005,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

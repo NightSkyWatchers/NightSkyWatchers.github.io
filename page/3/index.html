@@ -327,6 +327,1064 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2017/02/19/友盟推送那些问题(iOS10)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/02/19/友盟推送那些问题(iOS10)/" itemprop="url">友盟推送那些问题(iOS10)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-19T21:36:00+08:00">
+                2017-02-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/02/19/友盟推送那些问题(iOS10)/" class="leancloud_visitors" data-flag-title="友盟推送那些问题(iOS10)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>上周，公司要实现推送通知的功能，并决定在项目中集成友盟推送的 SDK来代替之前集成的云巴推送。</p>
+<p>云巴推送是什么鬼？让我们来看看它的功能和使用场景。</p>
+<p>云巴是一个覆盖全国（即将覆盖美国欧洲）的实时消息发布订阅系统，可以以毫秒级的速度向百万乃至千万终端用户发送大量的消息。云巴适用于对实时性和到达率要求高的应用、游戏、设备。云巴支持手机、平板、笔记本、智能硬件、智能家居等作为终端。</p>
+<p>云巴在 Github 上开源地址，云巴使用轻量级的 MQTT 作为协议，主要编程语言为 Erlang。云巴支持 IOS, Android, JavaScript, Socket.IO, PHP, C, C#等语言，可以从任一终端向另一终端发送消息。</p>
+<p>云巴的特点是：高并发、低耗费、毫秒级、跨平台、跨设备、跨语言。</p>
+<p>云巴的应用场景包括：双向消息推送，私信，即时聊天，多人大型游戏，租车打车通知，远程摄像头控制，远程开关空调，实时更新股票走势，实时更新库存量，活动文字直播，实时地理位置地图，智能硬件的 APP 控制，实时统计图表。</p>
+<p>其实云巴和友盟在实现推送功能方面没什么太大区别，只是因为云巴推送是在项目赶工期时的产品，具体的交互界面以及参数都没来得及定！所以推送在本次开发任务中交给了不大熟知云巴的我来做，因此换成了被大家熟悉且曾经集成过的友盟推送！</p>
+<p>下面介绍一些集成中常出的问题以及自己出现的问题：</p>
+<p>1.友盟后台添加新应用，需要上传 P12文件，而 pem 文件是不能上传成功的（本人没有上传成功）</p>
+<p>本人从钥匙串中导出文件是只能导出为 pem 文件，但是导出的 pem 文件却不能被友盟后台识别转换</p>
+<p>后来发现所导出的证书下面缺少了私钥，并且左侧没有三角标识，如下图：</p>
+<p>于是使用公司的苹果开发者帐号里面重新生成了一套 SSL证书（包含私钥，呈现下三角标识），如下图：</p>
+<p>左侧的三角标识显示为上图状况时，导出的p12文件才是友盟后台所需要的证书文件（而非钥匙串的 p12文件），把导出的 p12文件（设置密码<strong>*</strong>）上传到友盟后台，并在相应位置输入刚才设置的相对应证书的密码即可添加应用成功；</p>
+<p>随后就可以在  应用信息  一栏中查看应用刚刚添加的应用的 Appkey 和 AppMaster Secret，并可以设置公司推送服务器的IP 地址</p>
+<p>2.通过 DeviceToken在友盟后台添加测试设备</p>
+<p>查看友盟官方相关deviceToken问题的论坛</p>
+<p>2.1<br>1）使用didRegisterForRemoteNotificationsWithDeviceToken：（NSData *）token获取 token并使用 NSLog 方法打印出来，但是打印出来的 token 如下图：</p>
+<p>2.2<br>2）此时把以上字符串复制粘贴到图2.1的空格中，会标红报错——Device Token不能包含特殊字符，</p>
+<p>分析原因得知：刚才拷贝的内容包含尖括号&lt;&gt;以及空格，所以处理办法是——去掉&lt;&gt;和空格后；</p>
+<p>3）根据上一步分析，在图2.1空白处将拷贝的内容修改过后，发现仍然报错——Device Token长度错误</p>
+<p>分析原因得知：第一步拷贝到2.1图中空白处的内容因为包含空格和尖括号，所以长度已经超出了64，达到了73，而空白处提示 “输入64位<em>*</em>“，所以此处拷贝过来的内容已经被截取了前64位，导致后面的一些字符串被删除掉了，即使删除了尖括号和空格，就会导致被自动截取的前64位中有效的字符串（非空格，非尖括号）不足64位， 所以最有效的处理方法就是———从 1）中拷贝的 token 去除尖括号以及空格</p>
+<p>于是获取 token 的方法就使用如下方法：</p>
+<p>DeLog(@”UmengDeviceToken-%@”,[[[[deviceToken description] stringByReplacingOccurrencesOfString: @”&lt;” withString: @””]</p>
+<p>stringByReplacingOccurrencesOfString: @”&gt;” withString: @””]</p>
+<p>stringByReplacingOccurrencesOfString: @” “ withString: @””]);</p>
+<p>4）通过3）获取的 token 拷贝粘贴到空白处，并填写设备名称加以区分，即可添加成功测试设备。</p>
+<p>3.友盟后台测试单播和自定义播（alias）都能成功，而公司服务器测试单播可成功，而 alias 报2010错误</p>
+<p>查看友盟与Alias对应的Device_token 为空的官方论坛 &amp;&amp; 单播可收到，广播收不到的官方论坛</p>
+<p>1）检查 iOS 客户端代码是否设置别名成功</p>
+<p>客户端设置别名（Alias）代码如下：</p>
+<p>[UMessage setAlias:@”alias1310” type:@”alias” response:^(id  _Nonnull responseObject, NSError * _Nonnull error) {</p>
+<p>DeLog(@”成功返回数据–%@”,responseObject);</p>
+<p>}];</p>
+<p>并且打印信息显示：成功返回数据–{success = ok}</p>
+<p>2）通过友盟后台的工具检测设置的 alias 是否成功</p>
+<p>3）因为安卓都 OK，考虑到安卓和 iOS 的后台是分开集成的，所以让后台人员配合检查其后台相关代码</p>
+<p>后台人员检查无误！！！</p>
+<p>4)闹心有木有，到底哪里出了问题呢？？</p>
+<p>有点信不过后台哥们，于是跑到后台看他们的代码以及相关文档如下：</p>
+<p>他们也有个 alias_type:”xx”，阅读后面描述发现端倪，于是查看后台代码中alias_type 值发现：我的代码中的 type 类型值 和后台的竟然没有统一写成一致的，是不是这个问题导致的呢？？？</p>
+<p>于是飞速再键盘上敲下了相同的 alias_type 值，经过测试发现 OK 啦！  报的错误和真正的问题根源还是不大一样的！哦耶</p>
+<p>4.自定义弹框偶尔 会弹出两个弹框——自定义的弹框+友盟的默认弹框</p>
+<p>这个问题最初没有发现，后来有一次做断点调试的过程中，发现：两个弹框的Bug必现！！！！！</p>
+<p>1）因为测试机是 iOS10以下系统，所以在方法 代理方法 didReceiveRemoteNotification： fetchCompletionHandler： 中查看是否关闭友盟弹框</p>
+<p>如果是 iOS10系统，需要再方法userNotificationCenter： willPresentNotification： withCompletionHandler： 中查看是否关闭友盟弹框</p>
+<p>结果如下图：</p>
+<p>2）查看 友盟推送demo中的代码，是否调用了相同的方法</p>
+<p>结果如下图：</p>
+<p>比较二者，有没有发现二者的区别；两个方法的调用顺去颠倒也会出现 Bug 的，瞬间解决，哦耶！！！</p>
+<p>5.在友盟后台测试推送通知时，客户端经常收不到通知！！！</p>
+<p>1)请跳转到知乎相关网址去查找相对应的原因;</p>
+<p>2)网络很差，推送有延迟，稍等1-3分钟即可收到；</p>
+<p>这就是目前在集成友盟推送的开发过程中遇到的一些小插曲，</p>
+<p>希望有同样的问题的人可以通过以上解决方法能够顺利解决！！谢谢</p>
+<p>如有更多问题请移步到 【友盟+】消息推送常见问题索引</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2016/07/25/苹果内购(IAP)调研报告/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/07/25/苹果内购(IAP)调研报告/" itemprop="url">苹果内购(IAP)调研报告</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-25T08:18:00+08:00">
+                2016-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/07/25/苹果内购(IAP)调研报告/" class="leancloud_visitors" data-flag-title="苹果内购(IAP)调研报告">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>一.适用情况:</p>
+<p>什么时候使用苹果内购?为什么时候苹果内购?</p>
+<p>在苹果制定的游戏规则中，所有在App内提供的服务需要付费时，都应当使用IAP，比如解锁软件功能、游戏道具；所有在App外提供的服务需要付费时，都应使用其他支付方式，比如比如淘宝、京东等一堆电商，他们的商品都是不存在于App中的。</p>
+<p>列举一些相关实例,</p>
+<p>1.在IAP里，可以出售：</p>
+<p>数字内容：比如杂志、图片、游戏关卡解锁、相机付费滤镜等；</p>
+<p>软件功能：如各种扩展features；</p>
+<p>一次性服务：比如一次语音通话等。</p>
+<p>2.在IAP里，不能出售:</p>
+<p>现实世界的商品或服务</p>
+<p>3.现在有很多比如网易云课堂，腾讯课堂等等在线教育App，可以在App中购买视频并在APP中观看，也就是说’观看视频’这个功能是本身就存在于APP中的，只是需要你先购买视频，才能使用’观看视频’这个功能，这个时候，这种解锁APP已有功能的操作，就必须要使用iap</p>
+<p>当然，肯定有APP不是这样，毕竟谁也不愿意让苹果抽那么多钱，那些APP也许是用了一些什么欺骗手段，比如后台写个开关，审核的时候打开，所有功能都能使用，上线后再关闭开关啊什么的。这样的APP有可能随时会被警告并下架，严重点的封号也不是没可能  o(╯□╰)o</p>
+<p>第三点就提到了为什么使用苹果内购? 极大降低了应用审核被拒的风险以及被迫下架的可能性,还可以大力推广应用的付费功能.</p>
+<p>二.关于商品类型：iap创建商品时选择的商品类型大概分三类</p>
+<p>1.消耗型商品：</p>
+<p>就是类似游戏中的钻石，还有现在某些APP中的货币，比如什么鱼丸，鱼翅什么的，会被消耗的，要选择消耗型商品</p>
+<p>2.非消耗型商品：</p>
+<p>无法被消耗的商品，比如上文提到的视频课程，一次购买，就应该永久可以观看，视频你怎么消耗？打赏多少多少视频？o(╯□╰)o</p>
+<p>3.订阅类型商品：</p>
+<p>多用于会员，需要注意的一个地方就是苹果似乎没有保存期限，所以这个期限要后台保存的.另外需要注意的一个地方是当APP中有过订阅类型商品，注意是有过，曾经有过删除也算的，这个APP是无法转移账号的.</p>
+<p>三.在itunes connect 里面签署相关协议</p>
+<p>将上图标注的关于联系人信息,税务,银行信息填写完成就ok.</p>
+<p>四.添加内购项目</p>
+<p>五.应用内代码实现 &amp;&amp; 沙盒测试</p>
+<p>可以参考此博客,博客中介绍的比较详尽.</p>
+<p>六.内购的两种模式—内置模式 &amp;&amp; 服务器模式(相对可靠,安全,首选)</p>
+<p>使用内置模式。 需要交付的产品已经在程序内部。 这种方式通常用在一些被锁定的功能上。 也可以用来交付在程序束（App Bundle）中的内容。 该方式的一个重要的优点是你可以及时的给客户交付产品，大多数的内置产品应为非消耗性商品。</p>
+<p>使用服务器模式，要提供另外的服务器将产品发送给程序。 服务器交付适用于订阅、内容类商品和服务，因为商品可以作为数据发送，而不需改动程序束。 例如，一个游戏提供的新的内容（关卡等）。 Store Kit不会对服务器端的设计和交互做出定义，这方面工作需要你来完成。 而且，Store Kit不提供验证用户身份的机制，你需要来设计。 如果你的程序需要以上功能，例如，纪录特定用户的订阅计划， 你需要自己来设计和实现。</p>
+<p>1.内置模式的流程：</p>
+<p>app从app store 获取产品信息</p>
+<p>用户选择需要购买的产品</p>
+<p>app发送支付请求到AppStore</p>
+<p>AppStore处理支付请求,返回transaction信息</p>
+<p>app将购买的内容展示给用户</p>
+<p>2.服务器模式的流程:</p>
+<p>app从服务器获取产品标识列表</p>
+<p>app从app store 获取产品信息</p>
+<p>用户选择需要购买的产品</p>
+<p>app 发送支付请求到AppStore</p>
+<p>AppStore处理支付请求,返回transaction信息</p>
+<p>app将 transaction receipt 发送到服务器</p>
+<p>服务器收到收据后发送到app stroe验证收据的有效性</p>
+<p>app store 返回收据的验证结果</p>
+<p>根据app store 返回的结果决定用户是否购买成功</p>
+<p>上述两种模式的不同之处主要在于：交易的收据验证，内建模式没有专门去验证交易收据，而服务器模式会使用独立的服务器去验证交易收据。内建模式简单快捷，但容易被破解。服务器模式流程相对复杂，但相对安全</p>
+<p>开发之初，苹果官方就很负责的告知:我们的服务器不稳定。真正开发之后，发现苹果方果然是很负责的，不仅是不稳定，而且足够慢。app store server验证一个收据需要3-6s时间</p>
+<p>用户能否忍受3-6s的等待时间</p>
+<p>如果app store server 宕机，如何确保成功付费的用户能够得到正常服务。</p>
+<p>对于第一个问题，我们有理由相信用户完全无法忍受，所以采用异步验证的方式，服务器收到客户端的请求后，就将请求放到MCQ中去处理。</p>
+<p>对于第二个问题，由于苹果人员很负责人的告知：我们的服务器不稳定，所以不排除收据验证超时的情况。对于验证超时的收据，保存到数据库中并标记为验证超时，定时任务每隔一定的时间去app store验证，确保能够获取收据的验证结果。此处摘自博客</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2016/01/12/设置tableView的分割线顶两端/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2016/01/12/设置tableView的分割线顶两端/" itemprop="url">设置tableView的分割线顶两端</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-12T11:11:00+08:00">
+                2016-01-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2016/01/12/设置tableView的分割线顶两端/" class="leancloud_visitors" data-flag-title="设置tableView的分割线顶两端">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在最近的项目中设计图如下<br><img src="https://upload-images.jianshu.io/upload_images/792843-a630b65bc5a5f1d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/421" alt="示例图.png"></p>
+<p>分割线顶在 两端，于是搜集了相关的实现方法</p>
+<p>在控制器空加入如下代码，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLayoutSubviews &#123;</div><div class="line"></div><div class="line">    [super viewDidLayoutSubviews];</div><div class="line"></div><div class="line">    if ([self.tableView respondsToSelector:@selector(setSeparatorInset:)]) &#123;</div><div class="line">        [self.tableView setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if ([self.tableView respondsToSelector:@selector(setLayoutMargins:)]) &#123;</div><div class="line">        [self.tableView setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>并且cell的相关设置方法- (UITableViewCell <em>)tableView:(UITableView </em>)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 中调用下列方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (void)setSeparatorInsetForCell:(UITableViewCell*)cell &#123;</div><div class="line"></div><div class="line">    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];</div><div class="line">    </div><div class="line">    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) &#123;</div><div class="line">        [cell setSeparatorInset:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) &#123;</div><div class="line">        [cell setLayoutMargins:UIEdgeInsetsMake(0, 0, 0, 0)];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这是比较小众的方法来实现 特定的需求。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/12/10/iOS的后台机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/12/10/iOS的后台机制/" itemprop="url">iOS的后台机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-10T00:00:00+08:00">
+                2015-12-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/12/10/iOS的后台机制/" class="leancloud_visitors" data-flag-title="iOS的后台机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近在修改项目中的bug过程中,遇到了 设备锁屏无法定位的情况.</p>
+<p>于是搜查了Apple相关的后台机制,<a href="http://mobile.hiapk.com/evaluate/special/131012/1457001_2.html" target="_blank" rel="external">原文在此</a></p>
+<p>OS 7中，实际上APP拥有四种后台模式，无论是哪一种后台机制，均需要利用苹果给予的相应后台接口实现。IOS7系统中，开发者可以灵活利用多种后台接口（API）实现更加智能的应用操作。</p>
+<h5 id="一、无后台仅推送"><a href="#一、无后台仅推送" class="headerlink" title="一、无后台仅推送"></a>一、无后台仅推送</h5><p>第 一种后台方式为传统的无后台操作，仅有苹果推送机制，这种方式出现在iOS 3.x以下的大部分系统版本上。这个方式下，应用在按下Home键后即会关闭退出，其数据通过苹果搭建的推送服务器传输，并不需要应用后台运行。这种方式 不太好的原因在于，每次推出后，重新进入均需要重新加载，虽然推送能够统一解决数据和信息的传输，但遇到需要频繁进入应用（如聊天APP）的时候便会显得 体验不好。</p>
+<h5 id="二、墓碑式"><a href="#二、墓碑式" class="headerlink" title="二、墓碑式"></a>二、墓碑式</h5><p>第二种方式为墓碑式的后台机制，这在iOS 4后被大量采用，也就是人们所说的伪多任务。这方式相比较第一种改进的地方在于，按下Home键至主界面后，应用随即进入后台，但其被冻结，并不能进行任何操作。</p>
+<h5 id="三、智能调度后台"><a href="#三、智能调度后台" class="headerlink" title="三、智能调度后台"></a>三、智能调度后台</h5><p>第三种为系统智能调度的后台，iOS 7新增的background fetch， 这个后台接口在苹果WWDC 2013上有提及，其会根据用户行为自动调整达到效率最优的后台模式，能够处理不是很有时效性的信息获取。例如一些社交、新闻类的应用的后台信息更 新，iOS系统便会根据应用启动频率、时间和当前网络和电量的状况来智能分配每个应用的后台获取频率和启动时长。</p>
+<p>由于拥有该接口的应用的数据后台 刷新操作是统一调度的，因此系统可以在一个进程里面获得多个应用的数据，类似统一的推送机制，这样就能够最大限度地省电。 不过这个方式也有一个缺点，那便是开发者不能设定数据具体什么时候更新，因此这个后台方式只能应用在一些时效性和敏感度不高的地方。</p>
+<h5 id="四、真后台"><a href="#四、真后台" class="headerlink" title="四、真后台"></a>四、真后台</h5><p>第四种方式便是真后台机制，但iOS的真后台与Android的后台机制是不一样的，为了兼顾系统体验和统一进程管理，iOS在这上面加入了众多的限制。大致拥有以下几个后台接口模式：</p>
+<p><em>*1、Background Audio，这是后台的音频，这个很早之前便有，也是iOS设备中用得最多的后台应用，调用这个接口可以实现后台的音乐播放。</em></p>
+<p><em>2、Location Services，这是后台的定位，系统会拥有统一页面进行管理。</em></p>
+<p><em>3、VoIP，后台语音服务，类似Skype通话应用需要调用，可进行后台的语音通话。</em></p>
+<p><em>4、Newsstand，报刊杂志后台自动下载更新，其能够自动实时更新。</em></p>
+<p><em>5、 Background Task  Completion，这个接口早在iOS 4时候便拥有，其可以供任意类型的APP使用，不过在旧系统中，这个接口的后台限制运行时间仅为10分钟，意味着当应用退至后台，其后台运行仅能持续10 分钟便会转至休眠状态。iOS 7中对这个接口作出了改变，原来的为连续10分钟，即不论你这10分钟内用户是否关闭屏幕进入休眠状态，应用仍然会在后台等待10分钟完结后推出，而新的 改进为假如遇到关闭屏幕休眠的情况，这后台运行的10分钟便会跟随一同休眠，剩余的后台时间将会留待用户再一次唤醒设备才计算。这样后台运行的时间仍然为 10分钟，但并不连续，这样做的优点为省电。</em></p>
+<p><em>如现在有一些词典应用带有后台复制选词功能，实际上其是利用了这个接口，如果用户开启词典后并推出，即使屏幕关闭，但词典仍然在后台运行，电量消耗还是比较大的，在iOS 7上，这个问题可以得到解决。</em></p>
+<p><em>6、 Remote Notification，这是本次较大的一个改进接口，以往聊天类应用接受推送后点进去需要再收一次信息，这情况在QQ、微信等应用上最为明显。不过拥 有了这个接口后，这情况将不复存在，以后推送将能够直接启动后台任务。值得注意的是remote notification支持silent notification（静默推送），这样dropbox这类同步应用可以在后台以最节能的模式实时静默同步了，类似布卡漫画这种也可以推送正在追的漫 画的新章节并在后台静默下载，待到下载好再给用户发送一个本地推送，用户点开即看无需再联网</em></p>
+<p><em>7、Background Transfer Service，后台上传下载。iOS最接近传统多任务的后台接口，可供任意类型的app调用，无时间限制。应用场景包括后台上传和下载数据，这使得游戏 后台更新数据包，后台上传视频等等都成为可能，但是正如其名字，它只能用于处理上传下载这种传输类的任务，类似后台剪切板监控这种它就无能为力了。</em></p>
+<p>可以在TARGETS中查找相关选项即可查找到background模式的相关设置,并且这些设置最后会在pilist文件中有体现…<br><a href="https://upload-images.jianshu.io/upload_images/792843-dc4334f796047f41.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" target="_blank" rel="external">示例图</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/11/23/Appdelegate中代理方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/11/23/Appdelegate中代理方法/" itemprop="url">Appdelegate中代理方法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-23T11:07:00+08:00">
+                2015-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/11/23/Appdelegate中代理方法/" class="leancloud_visitors" data-flag-title="Appdelegate中代理方法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>最近项目要加上一个手势解锁，然而手机解锁的逻辑十分混乱，需要与应用程序启动、应用前后台切换执行的delegate 方法分析清楚！</p>
+<p>1.起初需求：要在程序第一次启动时，就需要设置解锁手势，于是在代理方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application中写了相关判断方法；</div></pre></td></tr></table></figure></p>
+<p>2.需求改变：要在用户有需求时设置手势解锁；于是在代理方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application中卸了相关判断方法。</div></pre></td></tr></table></figure></p>
+<p>3.在此过程中，仔细琢磨了 Appdelegate 中代理方法在前后台切换中的执行</p>
+<p>首次运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions</div><div class="line"></div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application</div></pre></td></tr></table></figure></p>
+<p>首次关闭（home）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillResignActive:(UIApplication *)application</div><div class="line"></div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</div></pre></td></tr></table></figure></p>
+<p>再次运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillEnterForeground:(UIApplication *)application</div><div class="line"></div><div class="line">- (void)applicationDidBecomeActive:(UIApplication *)application</div></pre></td></tr></table></figure></p>
+<p>再次关闭：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (void)applicationWillResignActive:(UIApplication *)application</div><div class="line"></div><div class="line">- (void)applicationDidEnterBackground:(UIApplication *)application</div></pre></td></tr></table></figure></p>
+<p>除此之外，再附上两个使用过的比较好的手势解锁框架—–LLLockView 和 CoreLock</p>
+<p>非常感谢两位人员，为我们提供了如此强大的开源框架！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/03/07/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2015/03/07/hello-world/" itemprop="url">Hello World</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-07T17:52:43+08:00">
+                2015-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术拓展/" itemprop="url" rel="index">
+                    <span itemprop="name">技术拓展</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2015/03/07/hello-world/" class="leancloud_visitors" data-flag-title="Hello World">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2015/02/07/第一篇博客/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -519,7 +1577,7 @@ GO!  GO!  GO!
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
