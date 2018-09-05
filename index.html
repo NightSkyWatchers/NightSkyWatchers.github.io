@@ -327,6 +327,496 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/09/04/记奇特的调试bug/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/04/记奇特的调试bug/" itemprop="url">记奇特的调试bug</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T16:21:00+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/04/记奇特的调试bug/" class="leancloud_visitors" data-flag-title="记奇特的调试bug">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://upload-images.jianshu.io/upload_images/792843-f7eb6b4f4afe60a4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="奇特的调试bug.png"></p>
+<p>传进来的model有值，并且可以打印model模型所有值；<br>但是打印model模型中的<code>title</code>、<code>image</code>、<code>sort</code>属性的时候，不是为nil，就是报错如下：<br><code>Execution was interrupted, reason: Attempted to dereference an invalid ObjC Object or send it an unrecognized selector.
+The process has been returned to the state before expression evaluation</code></p>
+<p>原因排查：<br>打印的<code>model</code>为一个字典<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">id = ad3886be78de49c8a6f66dfe9ba715fa,</div><div class="line">enable = 0,</div><div class="line">album = 1,</div><div class="line">delFlag = 1,</div><div class="line">ifBuy = 0,</div><div class="line">createDate = 1505893668000,</div><div class="line">vtime = ,</div><div class="line">type = 0,</div><div class="line">title = 微课堂,</div><div class="line">price = 1,</div><div class="line">image = 65617e87de1c4084ba1b78a673363b99,</div><div class="line">updateDate = 1508724726000,</div><div class="line">sort = 1</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>正确的打印出来如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">(lldb) po model.yy_modelDescription</div><div class="line">&lt; videosModel: 0x600002a75700&gt; &#123;</div><div class="line">enable = &quot;0&quot;;</div><div class="line">ifBuy = 0;</div><div class="line">image = &quot;b31e4d4ac6fd472babe9bae7c768bc0d&quot;;</div><div class="line">price = 2;</div><div class="line">title = &quot;政策解读1&quot;;</div><div class="line">type = &quot;1&quot;;</div><div class="line">videoId = &quot;4bb5310dcb9d4e7cb20aa00796da921f&quot;</div><div class="line">&#125;</div><div class="line"></div><div class="line">(lldb) po model</div><div class="line">&lt; videosModel: 0x600002a75700&gt;</div></pre></td></tr></table></figure></p>
+<p>排查得出结果：网络请求回来的json类型数据没有转换为模型类型！！！</p>
+<p>查看模型中的声明和实现如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">.h</div><div class="line">@interface videosModel : NSObject</div><div class="line"></div><div class="line">@property (nonatomic, copy) NSString *videoId;</div><div class="line">@property (nonatomic, copy) NSString *title;</div><div class="line">@property (nonatomic, copy) NSString *type;</div><div class="line">@property (nonatomic, copy) NSString *enable;</div><div class="line">@property (nonatomic, copy) NSString *image;</div><div class="line">@property (nonatomic, assign) NSInteger ifBuy;</div><div class="line">@property (nonatomic, strong) NSNumber *price;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">@interface videosListModel : NSObject</div><div class="line"></div><div class="line">@property (nonatomic, strong)  NSArray &lt; videosModel *&gt; *videos;</div><div class="line"></div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">.m</div><div class="line">@implementation videosModel</div><div class="line">+ (nullable NSDictionary&lt;NSString *, id&gt; *)modelCustomPropertyMapper &#123;</div><div class="line">return @&#123;@&quot;videoId&quot;:@&quot;id&quot;&#125;;</div><div class="line">&#125;</div><div class="line">@end</div><div class="line"></div><div class="line"></div><div class="line">@implementation videosListModel</div><div class="line">@end</div></pre></td></tr></table></figure></p>
+<p>在.m文件中缺少了YYModel的类方法（自定义容器类属性映射模型类的方法）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">+ (NSDictionary *)modelContainerPropertyGenericClass &#123;</div><div class="line">return @&#123;@&quot;videos&quot; : [videosModel class]&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/09/03/包裹BOOL值NSNumber对象和等价的三目运算区别何在/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/03/包裹BOOL值NSNumber对象和等价的三目运算区别何在/" itemprop="url">包裹BOOL值NSNumber对象和等价的三目运算区别何在</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T14:51:00+08:00">
+                2018-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/09/03/包裹BOOL值NSNumber对象和等价的三目运算区别何在/" class="leancloud_visitors" data-flag-title="包裹BOOL值NSNumber对象和等价的三目运算区别何在">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>后台人员提供了一个网络请求接口，接口文档如下：<br><img src="https://upload-images.jianshu.io/upload_images/792843-74ca848a570e58f2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="接口文档.png"><br>使用字典将参数传递过来给后台，移动端提供的参数<code>isAttention</code>是<code>BOOL</code>类型，要转换成后台所需要的<code>int</code>类型；<br>因为字典之中键值只能是对象类型，以往都是将<code>int</code>类型包装成<code>NSNumber</code>类型放在字典里进行传递，请求准确无误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">方式一    ：   &#123;@&quot;isAttention&quot;:@(isAttention)&#125;</div><div class="line">方式二    ：   [NSNumber numberWithBool:attention]</div><div class="line">方式三    ：   attention ? @1 : @0</div></pre></td></tr></table></figure></p>
+<p>不巧的是，今天使用上述两种方式都报错–400.</p>
+<p><code>Error Domain=NSCocoaErrorDomain Code=3840 &quot;JSON text did not start with array or object and option to allow fragments not set.&quot; UserInfo={NSDebugDescription=JSON text did not start with array or object and option to allow fragments not set., NSUnderlyingError=0x604000c51100 {Error Domain=com.alamofire.error.serialization.response Code=-1011 &quot;Request failed: bad request (400)&quot; UserInfo={NSLocalizedDescription=Request failed: bad request (400), NSErrorFailingURLKey=http://test.******.com/jsb_webserver/attention/user, com.alamofire.serialization.response.error.data = &lt;........&gt;, com.alamofire.serialization.response.error.response=&lt;NSHTTPURLResponse: 0x60400082f140&gt; { URL: http://test.******.com/jsb_webserver/attention/user } { Status Code: 400, Headers {
+Connection = [
+close
+],
+Content-Language = [
+en
+],
+Content-Type = [
+text/html;charset=utf-8
+],
+Content-Length = [
+1003
+],
+Date = [
+Mon, 03 Sep 2018 06:34:01 GMT
+]
+} }}}}</code><br>最终使用第三种方式包装<code>BOOL</code>类型参数，请求成功的！！！<br>但是本人还是有些不解，前两种写法和第三种有什么本质上的区别，<br>求大神不吝赐教！！！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/08/22/导航栏状态栏通透ios11适配/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="FourV Zhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FourV Zhang'Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/导航栏状态栏通透ios11适配/" itemprop="url">导航栏状态栏通透ios11适配</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T12:01:00+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">研发随笔</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/08/22/导航栏状态栏通透ios11适配/" class="leancloud_visitors" data-flag-title="导航栏状态栏通透ios11适配">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://upload-images.jianshu.io/upload_images/792843-3a991a65e0378fe5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="状态栏通透.png"><br>想要实现状态栏通透的效果：<br>iOS10及以下设备设置控制器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)viewDidLoad &#123;</div><div class="line">[super viewDidLoad];</div><div class="line">//  设置导航栏的背景图透明</div><div class="line">[self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];</div><div class="line">//  设置导航栏底部线不显示</div><div class="line">[self.navigationController.navigationBar setShadowImage:[UIImage new]];</div><div class="line">self.automaticallyAdjustsScrollViewInsets = NO; // 9.0设备上</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在ios11的设备上，可以设置<code>UIScrollView</code>的<code>contentInsetAdjustmentBehavior</code>的属性；</p>
+<p>例如：设置<code>tableView</code>的<code>contentInsetAdjustmentBehavior</code>的属性<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">if (@available(iOS 11.0, *)) &#123;</div><div class="line">_tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;</div><div class="line">&#125; else &#123;</div><div class="line">// Fallback on earlier versions</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>查看这个属性的相关信息得知，将要废除，并有新的属性替换<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@property(nonatomic,assign) BOOL automaticallyAdjustsScrollViewInsets API_DEPRECATED_WITH_REPLACEMENT(&quot;Use UIScrollView&apos;s contentInsetAdjustmentBehavior instead&quot;, ios(7.0,11.0),tvos(7.0,11.0)); // Defaults to YES</div></pre></td></tr></table></figure></p>
+<p><em>因为控制器的<code>automaticallyAdjustsScrollViewInsets</code>默认是YES，也就是控制器的视图会自动适应导航栏和状态栏的缩进；反之不自动适应，则从屏幕顶部开始。</em></p>
+<p><code>UIScrollViewContentInsetAdjustmentBehavior</code>同理,设置<code>UIScrollViewContentInsetAdjustmentNever</code>则不自动适应，从屏幕顶部开始。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">typedef NS_ENUM(NSInteger, UIScrollViewContentInsetAdjustmentBehavior) &#123;`</div><div class="line">UIScrollViewContentInsetAdjustmentAutomatic, // Similar to .scrollableAxes, but for backward compatibility will also adjust the top &amp; bottom contentInset when the scroll view is owned by a view controller with automaticallyAdjustsScrollViewInsets = YES inside a navigation controller, regardless of whether the scroll view is scrollable</div><div class="line">UIScrollViewContentInsetAdjustmentScrollableAxes, // Edges for scrollable axes are adjusted (i.e., contentSize.width/height &gt; frame.size.width/height or alwaysBounceHorizontal/Vertical = YES)</div><div class="line">UIScrollViewContentInsetAdjustmentNever, // contentInset is not adjusted</div><div class="line">UIScrollViewContentInsetAdjustmentAlways, // contentInset is always adjusted by the scroll view&apos;s safeAreaInsets</div><div class="line">`&#125; API_AVAILABLE(ios(11.0),tvos(11.0));</div></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/792843-b998dc2c5e32150d.gif?imageMogr2/auto-orient/strip" alt="导航栏通透.gif"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/06/07/APP上架被拒日常(6)-IPv6  网络错误/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1449,501 +1939,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/03/13/浅析collectionView的item间距/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/13/浅析collectionView的item间距/" itemprop="url">浅析collectionView的item间距</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-13T13:23:43+08:00">
-                2018-03-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/研发随笔/" itemprop="url" rel="index">
-                    <span itemprop="name">研发随笔</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/2018/03/13/浅析collectionView的item间距/" class="leancloud_visitors" data-flag-title="浅析collectionView的item间距">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>ios开发中比较常用到的就是 tableView 和 collectionView，二者分别用于<strong>列表展示</strong>和 <strong>网格展示</strong>；由于tableView的易用性几乎每个APP都会用到; 相对tableView，collectionView使用起来比较繁琐，所以collectionView的使用不常见。但UICollectionView也有自身的特点，比如<strong>横向布局、多行或者多列(瀑布流)</strong>展示。</p>
-<h5 id="一、创建collectionView（collectionView控制器）"><a href="#一、创建collectionView（collectionView控制器）" class="headerlink" title="一、创建collectionView（collectionView控制器）"></a>一、创建collectionView（collectionView控制器）</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(collectionView)</div><div class="line">- (instancetype)initWithFrame:(CGRect)frame collectionViewLayout:(UICollectionViewLayout *)layout</div><div class="line"></div><div class="line">(collectionView控制器)</div><div class="line">- (instancetype)initWithCollectionViewLayout:(UICollectionViewLayout *)layout ;</div></pre></td></tr></table></figure>
-<p>初始化类似tableView，设置delegate 和 datasource；<br>不同于tablView初始化设置UITableViewStyle，而collctionView初始化设置UICollectionViewLayout（一般用它的子类UICollectionViewFlowLayout）。<br>此处的UICollectionViewLayout是用于存储collectionView的一些布局属性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">@property (nonatomic) CGFloat minimumLineSpacing;</div><div class="line">@property (nonatomic) CGFloat minimumInteritemSpacing;</div><div class="line">@property (nonatomic) CGSize itemSize;</div><div class="line">@property (nonatomic) UICollectionViewScrollDirection scrollDirection;</div><div class="line">@property (nonatomic) UIEdgeInsets sectionInset;</div></pre></td></tr></table></figure></p>
-<p>cell间距的设置需要用到以上这些关键性属性。</p>
-<h5 id="二、布局协议"><a href="#二、布局协议" class="headerlink" title="二、布局协议"></a>二、布局协议</h5><blockquote>
-<p>UICollectionViewDelegateFlowLayout</p>
-</blockquote>
-<p><strong>协议中有以下这几个和布局相关的方法</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath;</div><div class="line">- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;</div><div class="line">- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;</div><div class="line">- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section;</div><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section;</div><div class="line">- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section;</div></pre></td></tr></table></figure></p>
-<p>这几个方法的功能和UICollectionViewLayout的4个属性基本相对应：<br><strong>1.属性用于统一设置<br>2.对象方法既可以统一设置，也可以区别设置</strong></p>
-<p>这几个方法名的区别在后半部分<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx sizeForItemAtIndexPath:(NSIndexPath *)indexPath</div></pre></td></tr></table></figure></p>
-<p>等同于属性 itemSize；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx insetForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
-<p>等同于属性 sectionInset；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx minimumLineSpacingForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
-<p>等同于属性 minimumLineSpacing；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">xxxxx minimumInteritemSpacingForSectionAtIndex:(NSInteger)section</div></pre></td></tr></table></figure></p>
-<p>等同于属性 minimumInteritemSpacing；</p>
-<h5 id="三、图文解析对应属性（针对不同滚动方向）"><a href="#三、图文解析对应属性（针对不同滚动方向）" class="headerlink" title="三、图文解析对应属性（针对不同滚动方向）"></a>三、图文解析对应属性（针对不同滚动方向）</h5><p><img src="https://upload-images.jianshu.io/upload_images/792843-e38f8f37093b9047.gif?imageMogr2/auto-orient/strip" alt="collectionView布局.gif"><br>gif中每个不同颜色代表不同的section</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/792843-337ac4d11d9e3a6d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="水平方向滚动.png"></p>
-<p>水平方向滚动的collectionView，竖直方向的间距是固定的：minimumInteritemSpacing指的是同一个section 内部item的竖直方向间隙；<br>minimumLineSpacing指的是同一个section 内部 item的水平方向间隙；</p>
-<p><img src="https://upload-images.jianshu.io/upload_images/792843-b867e973012d97b1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="竖直方向滚动.png"></p>
-<p>竖直方向滚动的collectionView，水平方向的间距是固定的：minimumInteritemSpacing指的是同一个section 内部item的水平方向间隙；<br>minimumLineSpacing指的是同一个section 内部 item的竖直方向间隙；</p>
-<h6 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h6><p>minimumInteritemSpacing表示 同一个section内部间item的 和滚动方向垂直方向的间距；</p>
-<p>minimumLineSpacing指的是同一个section 内部 item 的滚动方向的间距；<br>sectionInset指的是每个section内缩进；属性设置的每个section的内错进是相同的，都是正数。如果需要实现不同的setion的不同的内缩进，可以使用对象方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section;</div></pre></td></tr></table></figure></p>
-<p>来实现。</p>
-<h6 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h6><p>在写demo的过程中，发现collectionView的<strong>contentInsetAdjustmentBehavior</strong>（等同于控制器的automaticallyAdjustsScrollViewInsets属性）默认为UIScrollViewContentInsetAdjustmentAutomatic枚举值，会自适应控制器的边距，避开导航栏和状态栏，而使得collectionView的真实高度 和设置的高度不一致（相差状态栏和导航栏的高度和）。</p>
-<p><strong>demo地址</strong>：<a href="https://github.com/NightSkyWatchers/collectionView，欢迎下载观摩指正，内有*彩蛋*" target="_blank" rel="external">https://github.com/NightSkyWatchers/collectionView，欢迎下载观摩指正，内有*彩蛋*</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/03/01/软件生命周期&&测试的工作流程/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/01/软件生命周期&&测试的工作流程/" itemprop="url">软件生命周期&&测试的工作流程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T16:45:00+08:00">
-                2018-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术拓展/" itemprop="url" rel="index">
-                    <span itemprop="name">技术拓展</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-             <span id="/2018/03/01/软件生命周期&&测试的工作流程/" class="leancloud_visitors" data-flag-title="软件生命周期&&测试的工作流程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="软件的生命周期"><a href="#软件的生命周期" class="headerlink" title="软件的生命周期"></a>软件的生命周期</h3><h5 id="1-问题定义及规划"><a href="#1-问题定义及规划" class="headerlink" title="1.问题定义及规划"></a>1.问题定义及规划</h5><p><em>解决用户的痛点，方便用户<br>软件开发目的以及可行性，制定开发计划。。。</em></p>
-<h5 id="2-需求分析"><a href="#2-需求分析" class="headerlink" title="2.需求分析"></a>2.需求分析</h5><h5 id="3-软件设计"><a href="#3-软件设计" class="headerlink" title="3.软件设计"></a>3.软件设计</h5><h5 id="4-软件编码"><a href="#4-软件编码" class="headerlink" title="4.软件编码"></a>4.软件编码</h5><p><em>开发人员进行程序编码</em></p>
-<h5 id="5-软件测试"><a href="#5-软件测试" class="headerlink" title="5.软件测试"></a>5.软件测试</h5><p><em>开发做，单元测试<br>开发or测试做， 集成测试<br>开发做， 系统测试<br>测试做，验收测试</em></p>
-<h5 id="6-软件维护"><a href="#6-软件维护" class="headerlink" title="6.软件维护"></a>6.软件维护</h5><p><em>版本上线，产品上线，版本的升级改造，修复bug</em></p>
-<h3 id="软件测试的工作流程"><a href="#软件测试的工作流程" class="headerlink" title="软件测试的工作流程"></a>软件测试的工作流程</h3><p>接触到哪些岗位人员———-开发人员、产品经理、客服（收集用户反馈）、实施／技术支持／现场实施（驻场）、设计师<br><img src="http://upload-images.jianshu.io/upload_images/792843-8803570369b9419d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="软件测试工作流程.png"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://fourvcat.cc/2018/03/01/系统学习---软件测试的分类/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="FourV Zhang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FourV Zhang'Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/01/系统学习---软件测试的分类/" itemprop="url">系统学习---软件测试的分类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-01T16:22:00+08:00">
-                2018-03-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/技术拓展/" itemprop="url" rel="index">
-                    <span itemprop="name">技术拓展</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-
-          
-          
-             <span id="/2018/03/01/系统学习---软件测试的分类/" class="leancloud_visitors" data-flag-title="系统学习---软件测试的分类">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数 </span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-按照测试阶段"><a href="#1-按照测试阶段" class="headerlink" title="1.按照测试阶段"></a>1.按照测试阶段</h4><p>单元测试，集成测试，系统测试，验收测试（正式验收测试，Alpha测试，Beta测试）</p>
-<p><em>集成测试——-开发与开发之间的联调，接口测试<br>系统测试——整体全部功能的测试，不是模块的测试<br>Alpha测试—–前期用户测试，内部人员模拟实际环境进行验收测试（内测）<br>Beta测试——后期用户测试，通过内部测试，即将正式发布。 在一个或多个真实环境下发布版本进行公测。（预发步版本，公测，预测）</em></p>
-<h4 id="2-按照测试技术分类"><a href="#2-按照测试技术分类" class="headerlink" title="2.按照测试技术分类"></a>2.按照测试技术分类</h4><p>白盒测试，黑盒测试，灰盒测试</p>
-<p><em>白盒测试———- 知道程序内部代码逻辑，代码拿过来，输入测试数据就知道是否ok<br>黑盒测试———-不知道xxxxxxxxxxxx，通过表面的反应才知道是否ok<br>灰盒测试———-介于二者之间，既有xx，也有xx</em></p>
-<h4 id="3-按照被测试对象是否运行分类"><a href="#3-按照被测试对象是否运行分类" class="headerlink" title="3.按照被测试对象是否运行分类"></a>3.按照被测试对象是否运行分类</h4><p>动态测试，静态测试（文档检查，代码走查，界面检查）</p>
-<h4 id="4-不同测试手段"><a href="#4-不同测试手段" class="headerlink" title="4.不同测试手段"></a>4.不同测试手段</h4><p>手工测试，自动化测试</p>
-<h4 id="5-按测试包含的内容划分"><a href="#5-按测试包含的内容划分" class="headerlink" title="5.按测试包含的内容划分"></a>5.按测试包含的内容划分</h4><p>功能测试，界面测试，安全测试，兼容性测试，易用性测试，性能测试，压力测试，负载测试，恢复测试（灾备）</p>
-<p><em>恢复测试—-主要检查系统的容错能力。采用各种办法强迫系统失败，然后验证系统能否在指定的时间间隔内尽快恢复并重新启动系统</em><br><em>易用性测试—-测试软件是否易用，主观性比较强</em></p>
-<h4 id="6-其他测试"><a href="#6-其他测试" class="headerlink" title="6.其他测试"></a>6.其他测试</h4><p>冒烟测试，回归测试，探索性测试（测试思维）</p>
-<p>详解：<br><em>冒烟测试——在真正测试开始之前，都会对应用版本 主干功能做一下测试，如果主干功能都测试不通过，就可以打回这个版本；</em></p>
-<p><em>回归测试——-指之前提出的bug被修正后／软件功能发生变化后进行的重新测试，确认修改部分已经ok，并且不会对其他功能造成影响！<br>1.验证bug是否被修复<br>2.和该bug相关功能是否被影响</em></p>
-<p>###软件测试是什么<br>定义：为了发现程序中的错误而执行程序的过程</p>
-<p><em>1.为了发现程序存在的代码或业务逻辑错误<br>2.为了检验产品是否符合用户需求<br>3.为了提高用户的体验</em></p>
-<h4 id="软件测试的原则"><a href="#软件测试的原则" class="headerlink" title="软件测试的原则"></a>软件测试的原则</h4><p><em>1.测试应该尽早介入<br>2.所有测试追溯到用户需求<br>3.程序员英国避免检查自己的程序，除了单元测试，交给第三方／专业测试<br>4.设计测试用例时，应该考虑合法的输入和不合法的输入以及各种边界条件，意外状态<br>5.二八原则，测试发现的错误中80%很可能起源于20%的模块中（聚集效应，bug比较集中）<br>6.对错误结果要进行一个确认过程（必现，偶现；复现！！！）<br>7.制定严格的测试计划<br>8.完全测试是不可能的，测试需要终止（测试不是无休止的，没有明显bug测试就可以终止）<br>9.妥善保存测试过程中的所有文档</em></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1994,7 +1989,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
