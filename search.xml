@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[singleton是否可以这样写]]></title>
+    <url>%2F2018%2F09%2F17%2Fsingleton%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E8%BF%99%E6%A0%B7%E5%86%99%2F</url>
+    <content type="text"><![CDATA[1234567891011+ (instancetype)shareUser &#123;static JSBUserModel *_user;static dispatch_once_t onceToken;dispatch_once(&amp;onceToken, ^&#123;_user = [NSKeyedUnarchiver unarchiveObjectWithFile:SavePath];if (_user == nil) &#123;_user = [JSBUserModel new];&#125;&#125;);return _user;&#125; 在修改老项目的旧代码时，我和同事发现了这行几行代码！这是一个用户数据模型(userModel),用于存储用户的信息。 登录获取用户数据后，转换成模型，并归档到本地。当使用的时候到本地解档！解档！单例方法中解档？WHAT ？什么鬼？疑惑：单例方法shareUser中的dispatch_once(&amp;onceToken, ^{ xxxxxx}只执行一次，如何在使用的时候本地解档呢？我们对着代码改了又改，看了又看！ 一个上午，当我们多次command + R重新运行项目都需要重新输入帐号密码的时候，顿时疑惑被解开： 单例指的是在程序运行期间存在与内存中的唯一的示例对象，当程序死掉或者被杀掉的时候，应用占用的内存会被销毁，内存中的单例自然也会被销毁掉！！当再次启用应用的时候，会创建新的内存—新的单例实例！自然会走单例方法中`dispatch_once(&amp;onceToken, ^{ xxxxxx}中的代码]]></content>
+      <categories>
+        <category>研发随笔</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[NSLog打印失效]]></title>
+    <url>%2F2018%2F09%2F13%2FNSLog%E6%89%93%E5%8D%B0%E5%A4%B1%E6%95%88%2F</url>
+    <content type="text"><![CDATA[平时项目中都是使用DEBUG控制开发和发布状态下输出打印功能，突然有一天发现系统的NSLog打印失效了，挽救方法如下：在xcode项目下使用组合键command + &lt;打开编辑面板 添加OS_ACTIVITY_MODE 关键字，勾选并修改value值为able,重新运行即可！]]></content>
+      <categories>
+        <category>研发随笔</category>
+      </categories>
+      <tags>
+        <tag>ios</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[记奇特的调试bug]]></title>
     <url>%2F2018%2F09%2F04%2F%E8%AE%B0%E5%A5%87%E7%89%B9%E7%9A%84%E8%B0%83%E8%AF%95bug%2F</url>
     <content type="text"><![CDATA[传进来的model有值，并且可以打印model模型所有值；但是打印model模型中的title、image、sort属性的时候，不是为nil，就是报错如下：Execution was interrupted, reason: Attempted to dereference an invalid ObjC Object or send it an unrecognized selector. The process has been returned to the state before expression evaluation 原因排查：打印的model为一个字典123456789101112131415&#123;id = ad3886be78de49c8a6f66dfe9ba715fa,enable = 0,album = 1,delFlag = 1,ifBuy = 0,createDate = 1505893668000,vtime = ,type = 0,title = 微课堂,price = 1,image = 65617e87de1c4084ba1b78a673363b99,updateDate = 1508724726000,sort = 1&#125; 正确的打印出来如下：12345678910111213(lldb) po model.yy_modelDescription&lt; videosModel: 0x600002a75700&gt; &#123;enable = &quot;0&quot;;ifBuy = 0;image = &quot;b31e4d4ac6fd472babe9bae7c768bc0d&quot;;price = 2;title = &quot;政策解读1&quot;;type = &quot;1&quot;;videoId = &quot;4bb5310dcb9d4e7cb20aa00796da921f&quot;&#125;(lldb) po model&lt; videosModel: 0x600002a75700&gt; 排查得出结果：网络请求回来的json类型数据没有转换为模型类型！！！ 查看模型中的声明和实现如下12345678910111213141516171819202122232425262728293031.h@interface videosModel : NSObject@property (nonatomic, copy) NSString *videoId;@property (nonatomic, copy) NSString *title;@property (nonatomic, copy) NSString *type;@property (nonatomic, copy) NSString *enable;@property (nonatomic, copy) NSString *image;@property (nonatomic, assign) NSInteger ifBuy;@property (nonatomic, strong) NSNumber *price;@end@interface videosListModel : NSObject@property (nonatomic, strong) NSArray &lt; videosModel *&gt; *videos;@end.m@implementation videosModel+ (nullable NSDictionary&lt;NSString *, id&gt; *)modelCustomPropertyMapper &#123;return @&#123;@&quot;videoId&quot;:@&quot;id&quot;&#125;;&#125;@end@implementation videosListModel@end 在.m文件中缺少了YYModel的类方法（自定义容器类属性映射模型类的方法）123+ (NSDictionary *)modelContainerPropertyGenericClass &#123;return @&#123;@&quot;videos&quot; : [videosModel class]&#125;;&#125;]]></content>
